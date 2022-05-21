@@ -1,0 +1,593 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Platform</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../docs/more/styles.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../index.html">About</a></li><li class="chapter-item expanded "><a href="../../notes/index.html">Notes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../notes/lessons-learned/index.html">Lessons Learned Over the Past Few Years</a></li><li class="chapter-item expanded "><a href="../../notes/hybrid-serverless-traditional/index.html">Hybrid Serverless Traditional</a></li><li class="chapter-item expanded "><a href="../../notes/api-adapter-pattern/index.html">API Adapter Pattern</a></li><li class="chapter-item expanded "><a href="../../notes/typesafe-configuration/index.html">Typesafe Configuration</a></li><li class="chapter-item expanded "><a href="../../notes/ideas-vs-execution/index.html">Ideas vs Execution</a></li><li class="chapter-item expanded "><a href="../../notes/on-character/index.html">On Character</a></li></ol></li><li class="chapter-item expanded "><a href="../../bookmarks/index.html">Bookmarks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../bookmarks/api/index.html">API</a></li><li class="chapter-item expanded "><a href="../../bookmarks/frontend/index.html">Frontend</a></li><li class="chapter-item expanded "><a href="../../bookmarks/styling/index.html">Styling</a></li><li class="chapter-item expanded "><a href="../../bookmarks/backend/index.html">Backend</a></li><li class="chapter-item expanded "><a href="../../bookmarks/data/index.html">Data</a></li><li class="chapter-item expanded "><a href="../../bookmarks/platform/index.html" class="active">Platform</a></li><li class="chapter-item expanded "><a href="../../bookmarks/release/index.html">Release</a></li><li class="chapter-item expanded "><a href="../../bookmarks/operations/index.html">Operations</a></li><li class="chapter-item expanded "><a href="../../bookmarks/execution/index.html">Execution</a></li><li class="chapter-item expanded "><a href="../../bookmarks/languages/index.html">Languages</a></li><li class="chapter-item expanded "><a href="../../bookmarks/custom/index.html">Custom</a></li><li class="chapter-item expanded "><a href="../../bookmarks/more/index.html">More</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="platform"><a class="header" href="#platform">Platform</a></h1>
+<!------------------------------------------------------------------------------
+
+
+// .. platform engineering .. devs are the customers/users ..
+// .. supabase .. database (+ stuff) is the (primary) platform ..
+
+* https://old.reddit.com/r/sre/comments/s695o4/platform_engineering_is_live/
+* https://old.reddit.com/r/devops/comments/s695zu/platform_engineering_is_live/
+
+* !!!!! https://platformengineering.org/what-is-platform-engineering
+
+* https://platformengineering.org/platform-tooling/backstage-io-spotify
+* https://platformengineering.org/platform-tooling/kubevela
+* https://platformengineering.org/platform-tooling/humanitec
+
+* https://shahadarsh.com/2020/10/12/platform-engineering
+* https://shahadarsh.com/2020/11/11/platform-engineering-challenges-and-solutions/
+
+* !!!!!!!!!! https://www.getambassador.io/resources/rise-of-cloud-native-engineering-organizations/
+* https://softwareengineeringdaily.com/2020/02/13/setting-the-stage-for-platform-engineering/
+* !!!!! https://www.liatrio.com/blog/what-is-platform-engineering-the-concept-behind-the-term
+
+* !!!!! https://internaldeveloperplatform.org/
+* https://teamtopologies.com/
+* https://web.devopstopologies.com/#anti-types
+
+* !!!!! https://martinfowler.com/articles/platform-prerequisites.html
+* !!!!! https://www.thoughtworks.com/insights/articles/infrastructure-as-product
+
+* !!!!!!!!!!!!!!!!!!!! https://ably.com/blog/no-we-dont-use-kubernetes
+  * // .. THE PLATFORM 'IS' THE ANSWER .. WHY PLATFORM ENGINEERING EXISTS .. AND IS NOT K8S NECESSARILY ..
+* https://www.aquasec.com/cloud-native-academy/kubernetes-101/kubernetes-alternatives/
+
+* !!!!! https://thenewstack.io/platform-engineering-challenges-and-solutions/
+* https://www.techrepublic.com/article/top-5-things-to-know-about-platform-engineering/
+* https://about.gitlab.com/topics/devops/what-is-a-devops-platform-engineer/
+* https://medium.com/seek-blog/platform-engineering-why-we-dont-need-a-devops-team-e88c8b97cc4f
+* https://www.sonata-software.com/blog/product-vs-platform-engineering-rise-platform-engineering-team-structure-principles-practices
+* 
+* https://old.reddit.com/r/devops/comments/ojojef/platform_engineering_how_do_you_do_it/
+* https://old.reddit.com/r/sre/comments/m12sdl/becoming_a_platform_engineer/
+* 
+* ! https://github.com/backstage/backstage
+  * // example of platform eng ..
+* 
+* https://old.reddit.com/r/cscareerquestionsEU/comments/hdmyq0/what_do_platform_engineers_do/
+* 
+* https://octo.vmware.com/platform-engineering-and-sre-whats-the-difference/
+* https://www.infoq.com/articles/platform-engineering-as-community-service/
+* https://www.accenture.com/us-en/services/software-platforms/platform-essentials-platform-engineering
+* https://www.accenture.com/us-en/services/software-engineering/product-platform-engineering
+* https://medium.com/codex/why-you-need-a-platform-engineering-team-1d0ad5824145
+* https://humanitec.com/blog/internal-platform-teams-what-are-they-and-do-you-need-one
+* https://shipa.io/innovation/building-a-successful-platform-engineering-team/
+* https://devops.stackexchange.com/questions/1005/what-is-a-platform-engineer/1007
+* 
+* https://builtin.com/software-engineering-perspectives/platform-engineer-twilio-ask-your-developer-excerpt
+* https://loft.sh/blog/9-tools-every-platform-engineer-should-know/
+* 
+* 
+* 
+
+--------------------------------------------------------------------------------
+
+* !!!!! // AGNOSTIC KUBERNETES ..
+* https://cluster-api.sigs.k8s.io/
+* https://old.reddit.com/r/k8s/comments/q33s4d/kubernetes_cluster_api_reaches_production/
+* ! https://old.reddit.com/r/kubernetes/comments/ejh6cr/is_anyone_using_clusterapi_yet/
+* https://old.reddit.com/r/kubernetes/comments/m964xj/kubeadm_vs_cluster_api/
+* https://helio.exchange/blog/deploying-kubernetes-with-cluster-api
+* https://tanzu.vmware.com/content/blog/the-what-and-the-why-of-the-cluster-api
+* https://old.reddit.com/r/kubernetes/comments/rfhvww/how_to_create_provision_and_operate_kubernetes/
+  * I'm using Cluster-API with OpenStack and so far I've been very impressed. We're wrapping our own K8s-aaS service around it. It's a pleasure to work with.
+* 
+
+// (WINDOWS) KUBERNETES KIND
+
+* https://kind.sigs.k8s.io/docs/user/quick-start/
+* https://github.com/kubernetes-sigs/kind/releases
+* ! https://blog.nillsf.com/index.php/2020/08/28/running-kind-in-windows/
+* ! https://www.baeldung.com/ops/kubernetes-kind
+* https://sookocheff.com/post/kubernetes/local-kubernetes-development-with-kind/
+* https://dotnetninja.net/2021/03/running-a-multi-node-kubernetes-cluster-on-windows-with-kind/
+* https://itnext.io/starting-local-kubernetes-using-kind-and-docker-c6089acfc1c0
+
+* https://itnext.io/starting-local-kubernetes-using-kind-and-docker-c6089acfc1c0
+* https://www.cncf.io/wp-content/uploads/2020/08/CNCF-Webinar-Navigating-the-Sea-of-Local-Clusters-.pdf
+
+--------------------------------------------------------------------------------
+
+// .. kubernetes ..
+
+// pods without images
+https://github.com/kubernetes/kubernetes/issues/4932
+
+<%----------------------------------------------------------------------------%>
+
+!!!!!
+K8S provide a lot for than just autoscaling and load balancing. You can technically compare k8s to AWS as a whole.
+
+* !!!!! https://old.reddit.com/r/devops/comments/aali9l/why_k8s_when_aws_offers_autoscaling_and_load/
+
+  * A platform agnostic API to deploy your application - Don't like AWS? Just spin up a k8s cluster on GCP and deploy your application there. Without it you would need to invest a lot of time and effort into rebuilding your infrastructure inside GCP or any other provider. You can even go from cloud to on-prem or deploy your application to multiple cloud providers using the same deployment interfaces/APIs. That is if you don't make use of the extra services that the cloud providers provide.
+  Increased application density/cost savings. Rather than spinning up lots of small VMs that all cost a little bit and mostly waste their resources you can pack all the applications onto a fewer number of nodes and make better use of the servers you have.
+  Separation of concerns, no need to worry about VMs or keeping your OS up to date, no need to worry about ssh access, logging etc, k8s can do all that for you and let you focus on your application and less on the server supporting it. Though some of this is taken care of if you use their managed services, their managed services can also be very costly when you reach a large scale.
+  But that said it is solving similar problems to AWS and GCP so a large amount of what you can do with it you can also achieve with those platforms. AWS/GCP might be better if you can leverage its on demand costing and structure your application to make use of its services - if you don't might being locked into them as a platform.
+
+  Your application may or may not be well suited to k8s or even a containerized environment. It is just one of many solutions out there to help solve a common set of problems in its own way with its own benefits and trade offs that you must take into account when building your applications.
+
+  * !!!!! The real reason people use Kubernetes is because it's a container scheduling system, and most major cloud providers are node scheduling systems. That makes it very, very different from what AWS is doing - instead of launching several nodes for your application and then managing that, you launch several containers per node and manage those.
+
+  That's the unique selling point for Kubernetes - if you want to use containers instead of nodes as your primary layer (and you want to use containers so you can decouple application development and operational deployment needs), and you need a production-grade container scheduling system, you want to use Kubernetes to do it because it's the best at doing it. There really isn't a very strong and compelling equivalent for the same use case that isn't using K8s.
+
+  If you aren't using containers, then don't use Kubernetes and stick to AWS EC2/GCP/DigitalOcean/RackSpace, etc. Simple as that.
+
+  That being said, Kubernetes offers much more than just auto-scaling and load balancing:
+
+  A consistent standardised REST API. This is honestly its biggest feature imo.
+  Inbuilt secrets management with Secret types.
+  Extensive plugin support that allows you to modify and customise the actual runtime experience (you could choose to write your own custom scheduler for Kubernetes pods, or hijack the API server and have it pass through your own custom auth layer, and so on)
+  Support for container design patterns like sidecar pods.
+  In-built service discovery and service-to-service networking (Kubernetes will inject service IPs into pods so they can talk to each other at any time)
+  I don't have experience with GCP, but almost all of these abstractions are either bundled separately or don't really exist in the flavour you want them to on AWS.
+
+    * !!!!! ^ This is the best answer. To expand a bit:
+
+    AWS is a toolbox of parts. Almost every open-source project uses AWS resources differently. So you can't "mix and match" different projects.
+
+    If you write a deploy system, it will work for you, but won't work for everyone else, because everyone does deploys differently. (i.e. Some do it via SSH, some do it via building/launching a new AMI, Some do routing via ELB, some do it via Nginx, etc. Some use ASGs, some don't, etc.)
+
+    You might store metadata about your nodes in a DynamoDB, or might store annotations in Tags, but someone else might not. So you can write an "overview" page based on your data, but it won't work for anyone else.
+
+    Kubernetes is a Platform. It not only provides an API for all the things it does, but it also provides really simple plug-in mechanism to extend Kubernetes. It standardizes everything from Deployments to Ingresses (web and TCP servers), to fail-over, to security to health checks.
+
+    Some concrete examples:
+
+    - Operators: One way to extend K8s is via Operators. You load a single YAML file, and it now "knows" how to do something new. For example, there is a "MySQL Database Operator". You load that operator once, then say "I want a cluster with 3 replicas". It will create the right pods. The Operator will do all the magic (clustering, backups, fail-over, etc) than a human Operator would have done.
+
+    - Service Mesh: Since K8s knows about all your services, you can load a single YAML file to create a "service mesh" in between all your services. It will monitor all your communication between services and give you data about how they are performing (without touching your code.).
+
+    - Hello World: Every K8s tutorial has a "hello world" example YAML file that works in any cluster. But unlike a "raw AWS box", K8s will handle any node failures (including updating DNS if need be).
+
+  * Well, first of all, it should be "Why to use k8s when AWS offers elastic beanstalk or aws itself"
+
+  k8s doesn't actually have any real load balancing and relies on what you supply: on aws it would elb/nlb/alb on bare metal it probably is going to be metallb.
+
+  K8S provide a lot for than just autoscaling and load balancing. You can technically compare k8s to AWS as a whole.
+
+  Service accounts => AWS IAM Service-Linked Roles
+
+  Pod => ec2
+
+  Ingress => ALB/ELB/NLB
+
+  Persistent Volume Provisioners => EBS/EFS
+
+  Technically you still use autoscaling groups to provision new nodes in your k8s cluster effortlessly, but you workloads are more tightly packed.
+
+  Imagine I have 5 services in 3 different environments two of which are sandbox environments. Without containers it's 5x2 (sandbox) + 5x3 one for each availability zone) ec2 instances. 99% of the time those instances on sandbox do nothing. With k8s I provision one sandbox cluster and one production cluster. For the sandbox, I just give it 3 instances total for each availability zone and k8s will pack the shit out of it. For production, well, depending on the nature of applications, start with 6 instances and see how to goes + add cluster autoscaler.
+
+  Can I solve the same issue with the magic of CMS (C is for Configuration) and Infrastructure as a Code? Sure. Will be as easily manageable? No. Will I be able to transfer what I learned to a different cloud? Nope. Will a be locked into AWS until end of days? Yes.
+
+  On top of everything I get service discovery, secrets management, config maps, easy rolling updates, easy canary updates. Init containers are dope. Setting env variables from configmaps and secrets is dope. Mounting config maps/secrets as a mf volume is dope.
+
+--------------------------------------------------------------------------------
+
+// platform ops .. capabilities over culture .. platform is the product ..
+// .. minimize impedance mismatch between infra and product .. thru a platform ..
+
+https://thenewstack.io/platform-ops-the-next-frontier-for-operations-teams/
+https://www.nginx.com/blog/why-every-company-needs-platform-ops/
+https://www.gartner.com/en/documents/3892010/strengthen-your-devops-capability-with-platform-ops
+https://www.linkedin.com/pulse/what-platformops-maya-ber-lerner
+https://6point6.co.uk/insights/why-you-should-care-about-platform-ops/
+https://www.quali.com/blog/reinventing-the-wheels-in-devops-doesnt-scale-platform-ops-does/
+https://6point6ltd.medium.com/why-you-should-care-about-platform-ops-ee3d953df43f
+https://dzone.com/articles/what-is-platform-ops-and-why-should-developers-nee
+
+https://old.reddit.com/r/devops/comments/l5cnij/the_importance_of_internal_platform_teams/
+
+https://www.catchpoint.com/blog/improve-devops-strategy
+https://opengovasia.com/events/the-evolution-of-devops-is-platform-ops-the-future/
+
+https://www.devopsdigest.com/platform-ops-the-key-to-unlocking-the-full-potential-of-devops
+https://www.eventbrowse.com/city/singapore/event/the-evolution-of-devops-is-platform-ops-the-future/
+
+--------------------------------------------------------------------------------
+
+
+* !!!!! https://old.reddit.com/r/devops/comments/aali9l/why_k8s_when_aws_offers_autoscaling_and_load/
+
+* https://expeditedsecurity.com/aws-in-plain-english/
+* https://tutorialsdojo.com/aws-cheat-sheets/
+  * https://tutorialsdojo.com/aws-global-infrastructure/
+  * https://tutorialsdojo.com/aws-pricing/
+  * https://tutorialsdojo.com/aws-well-architected-framework-five-pillars/
+  * https://tutorialsdojo.com/aws-well-architected-framework-design-principles/
+  * https://tutorialsdojo.com/aws-well-architected-framework-disaster-recovery/
+* 
+* https://digitalcloud.training/certification-training/aws-solutions-architect-associate/compute/amazon-ec2/
+* ! https://intellipaat.com/blog/tutorial/amazon-web-services-aws-tutorial/aws-cheat-sheet/
+* ! https://intellipaat.com/mediaFiles/2019/02/AWS-Basic-Cheat-Sheet.png
+* 
+* https://levelup.gitconnected.com/amazon-web-services-aws-cheat-sheet-f1bddd736d0a
+* https://www.techrepublic.com/article/amazon-web-services-cheat-sheet/
+* https://cheatography.com/irohitpawar/cheat-sheets/aws-services/
+* https://www.whizlabs.com/blog/aws-cheat-sheet/
+* 
+* 
+* 
+
+* // aws cli
+  * https://www.bluematador.com/learn/aws-cli-cheatsheet
+  * ! https://aws.plainenglish.io/aws-cli-commands-cheatsheet-49fab131b35d
+  * https://devhints.io/awscli
+  * https://aws.amazon.com/cli/
+  * 
+  * https://gist.github.com/apolloclark/b3f60c1f68aa972d324b
+
+//
+
+https://intellipaat.com/blog/tutorial/amazon-web-services-aws-tutorial/aws-cheat-sheet/
+
+Types of Cloud
+There are three cloud types:
+
+Public cloud: Here, the resources and services provided by third-party service providers are available to customers via the Internet.
+Private cloud: In a private cloud, the resources and services are managed in-house or by third parties, exclusively for a particular organization.
+Hybrid cloud: It is a combination of both public and private cloud types. The decision whether to run the services on public or private depends on some parameters such as the sensitivity of the data and applications, industry certifications and required standards, etc.
+Go through our AWS Course in London to get a clear understanding of AWS!
+
+AWS
+Amazon Web Services (AWS) is a collection of various Cloud Computing services and applications that offers flexible, reliable, easy-to-use, and cost-effective solutions.
+
+Instance: An instance is a virtual server for running applications on AWS.
+
+Types of AWS Services
+Auto-scaling: It is a service designed by EC2, which is used to launch or terminate EC2 instances based on user-defined policies.
+
+Elastic Load Balancing: It automatically distributes the incoming application traffic across multiple instances at multiple availability zones.
+
+Learn more about AWS by enrolling in this AWS Training in New York to get ahead in your career!
+
+Networking Services
+VPC: Amazon Virtual Private Cloud (VPC) is a virtual data center in AWS consisting of a set of isolated resources.
+Direct Connect: It is used to establish a dedicated network connection from the host network to AWS without an Internet connection.
+Route 53: It is a scalable and highly available Domain Name System (DNS) and domain name registration service, and 53 is the port on which this service runs.
+Computing Services
+EC2: It is a virtual server that provides resizable compute capacity on the cloud.
+Elastic Beanstalk: It is an application container used for deploying and managing containers. It creates an environment for working with web applications.
+Lambda: It is a computing service that runs the code in response to events and automatically manages the computing resources.
+EC2 Container Service: It allows us to easily run and manage Docker containers across a cluster of EC2 instances.
+Are you preparing for an AWS interview? Here are the latest AWS Interview Questions!
+
+Storage Services
+S3: It refers to Simple Storage Service and allows the storage of data objects of any sort and flat files in the cloud. It is secure, scalable, and durable.
+CloudFront: CloudFront defines a Content Delivery Network. It provides a way to distribute content to end-users with low latency and high data-transfer speeds.
+Glacier: It is a low-cost storage service that provides secure and durable storage for long-term data archiving and backup.
+EFS (Elastic File Storage): It is a file storage service used in EC2 instances and connects to multiple EC2 instances.
+Snowball: It is used for moving large amounts of data into/out of AWS using secure appliances, i.e., it provides the data archiving functionality for the data that no longer needs to be accessed actively.
+Storage Gateway: It is used for securely integrating on-premises IT environments with cloud storage for backup and disaster recovery.
+Get certified by the top AWS Course in Singapore now!
+
+RDS (Relational Database Service): It allows the storage of data objects as part of the relational database. It makes it easy to set up, operate, and scale familiar relational databases in the cloud.
+DynamoDB: It is a scalable NoSQL data store that is used to manage distributed replicas of data for high availability.
+ElastiCache: It improves application performance by allowing us to retrieve information from an in-memory caching system. It is a way of caching databases in the cloud.
+Redshift: It is a fast, fully managed data warehousing service, which makes it cost-effective to analyze all data using the existing Business Intelligence tools.
+DMS (Data Migration Service): It helps in migrating databases to the cloud easily and securely. It can also be used for converting databases.
+
+Analytics
+EMR: Amazon Elastic MapReduce helps in performing big data tasks such as web indexing, data mining, and log file analysis.
+Data Pipeline: It helps in moving data from one service to another. It is a service used for periodic, data-driven workflows.
+AWS Elasticsearch: It is a managed service that helps in deploying, operating, and scaling Elasticsearch.
+Kinesis: It makes it easy to work with real-time streaming data in the AWS cloud.
+AWS Machine Learning: It is a service that enables us to easily build smart applications.
+QuickSight: AWS QuickSight is a cloud-assisted Business Intelligence service that helps in deriving insights from data easily.
+Learn the complete concepts of AWS at Hyderabad in just 36 hours!
+
+Security and Identity
+IAM: It helps in configuring security for all the services. It is used to ensure that our other services remain safe and inaccessible to others.
+Directory Service: It is used to provide a managed directory in the cloud.
+Inspector: It enables us to analyze the behaviour of the applications we run on AWS and helps in identifying potential security issues.
+AWS WAF (Web Application Firewall): It protects our web application from attacks by providing web traffic filters.
+Cloud HSM: It is a Hardware Security Module.
+KMS: It is a Key Management Service.
+Are you interested in learning AWS from experts? Enroll in the AWS Course in Bangalore now!
+
+Management Tools
+CloudWatch: It is used to create different metrics. It provides monitoring for resources and applications.
+CloudFormation: It helps in creating and updating a collection of related AWS resources.
+CloudTrial: It provides increased visibility into user activity by recording API calls made on an account.
+OpsWorks: It is a DevOps platform for managing applications of any size or complexity on the AWS cloud.
+Config: It gives an inventory of AWS resources, lets us audit the AWS resource configuration history, and notifies the changes.
+Service Catalog: It allows organizations to manage approved catalogs of IT resources.
+Trusted Advisor: It inspects the AWS environment and finds opportunities to save money and improve system performance.
+Wish to learn more? Check out Intellipaat’s AWS Course to get an in-depth understanding of Amazon Web Services!
+
+--------------------------------------------------------------------------------
+
+* https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf
+* https://dockerlabs.collabnix.com/docker/cheatsheet/
+* ! https://github.com/wsargent/docker-cheat-sheet
+
+--------------------------------------------------------------------------------
+
+* !!!!! https://old.reddit.com/r/devops/comments/aali9l/why_k8s_when_aws_offers_autoscaling_and_load/
+
+* https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+* https://www.bluematador.com/learn/kubectl-cheatsheet
+* https://www.mirantis.com/blog/kubernetes-cheat-sheet/
+* https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf
+* https://unofficial-kubernetes.readthedocs.io/en/latest/user-guide/kubectl-cheatsheet/
+* https://phoenixnap.com/kb/kubectl-commands-cheat-sheet
+
+* // gitops
+  * https://old.reddit.com/r/kubernetes/comments/nr3fp0/gitops_demystified/
+  * !!!!! https://testingclouds.wordpress.com/2021/06/02/gitops-demystified/
+  * https://github.com/weaveworks/kubediff
+  * https://github.com/jml/terradiff
+  * !!!!! https://twitter.com/bryanl/status/1399783101925052422
+  * https://old.reddit.com/r/kubernetes/comments/9a8stj/what_is_gitops_really/
+    * !!!!! Yes, but gitops is a system where by there is a system in place which watches the git repository for changes and automatically applies that to the environment even posts back certain things to git.
+
+  An important part of what you would do is having declarative configuration and idempotent deployment code in the repository. So when the environment is not as intended the system should 'make it so'.
+
+  You do not directly use kubectl, etc. the system does that for you.
+
+  The only part you would interact with is: git.
+
+  This makes it very clear who changed what/when/why and does not give the ability to change and thus break things directly.
+
+  Because the only system interacting with Kubernetes itself is the gitops deployment system security and compliance are handles automatically without any extra effort.
+  * !!!!! https://old.reddit.com/r/kubernetes/comments/imgqoj/gitops_the_bad_and_the_ugly/
+  * https://blog.container-solutions.com/gitops-limitations
+  * https://cloudogu.com/en/blog/gitops-tools
+  * https://old.reddit.com/r/kubernetes/comments/dc8bfd/gitops_what_why_and_how/
+  * https://www.gitops.tech/
+  * https://old.reddit.com/r/kubernetes/comments/krjsw9/how_to_use_gitops_with_argocd/
+  * 
+  * 
+  * 
+  * 
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../bookmarks/data/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../bookmarks/release/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../bookmarks/data/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../bookmarks/release/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../../docs/more/script.js"></script>
+    </body>
+</html>

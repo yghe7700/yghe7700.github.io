@@ -1,0 +1,507 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>API</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../docs/more/styles.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../index.html">About</a></li><li class="chapter-item expanded "><a href="../../notes/index.html">Notes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../notes/lessons-learned/index.html">Lessons Learned Over the Past Few Years</a></li><li class="chapter-item expanded "><a href="../../notes/hybrid-serverless-traditional/index.html">Hybrid Serverless Traditional</a></li><li class="chapter-item expanded "><a href="../../notes/api-adapter-pattern/index.html">API Adapter Pattern</a></li><li class="chapter-item expanded "><a href="../../notes/typesafe-configuration/index.html">Typesafe Configuration</a></li><li class="chapter-item expanded "><a href="../../notes/ideas-vs-execution/index.html">Ideas vs Execution</a></li><li class="chapter-item expanded "><a href="../../notes/on-character/index.html">On Character</a></li></ol></li><li class="chapter-item expanded "><a href="../../bookmarks/index.html">Bookmarks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../bookmarks/api/index.html" class="active">API</a></li><li class="chapter-item expanded "><a href="../../bookmarks/frontend/index.html">Frontend</a></li><li class="chapter-item expanded "><a href="../../bookmarks/styling/index.html">Styling</a></li><li class="chapter-item expanded "><a href="../../bookmarks/backend/index.html">Backend</a></li><li class="chapter-item expanded "><a href="../../bookmarks/data/index.html">Data</a></li><li class="chapter-item expanded "><a href="../../bookmarks/platform/index.html">Platform</a></li><li class="chapter-item expanded "><a href="../../bookmarks/release/index.html">Release</a></li><li class="chapter-item expanded "><a href="../../bookmarks/operations/index.html">Operations</a></li><li class="chapter-item expanded "><a href="../../bookmarks/execution/index.html">Execution</a></li><li class="chapter-item expanded "><a href="../../bookmarks/languages/index.html">Languages</a></li><li class="chapter-item expanded "><a href="../../bookmarks/custom/index.html">Custom</a></li><li class="chapter-item expanded "><a href="../../bookmarks/more/index.html">More</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="api"><a class="header" href="#api">API</a></h1>
+<!------------------------------------------------------------------------------
+
+* https://www.freecodecamp.org/news/what-is-an-api-and-how-to-test-it/
+* https://www.imaginarycloud.com/blog/grpc-vs-rest/
+
+!!!!!
+https://news.ycombinator.com/item?id=18863081
+// GRPC (OVER WEB STREAMS) IS THE FUTURE ..
+
+* This exists with something like OpenAPI, but Protobuf is much simpler. And then you layer something like gRPC on top of that to get all the HTTP2 benefits, and its obvious why its gaining popularity.
+
+* gRPC and other modern RPC protocols/SOA frameworks are basically "the good parts from SOAP".
+
+* We built out our gRPC services starting about 8 months ago. I pounded my fists on the gRPC-web issue board a bunch of times. Things started moving. In the end, it was too little and the effort is too divided. Also the route for which they wanted to implement streaming was, personally, poorly designed.
+We have since switched to GraphQL and haven't looked back.
+
+* !!!!! GQL and gRPC are absolutely complementary. Having resolvers fan out to gRPC-backed microservices has been great at our company. We initially used protos for all of our service contracts (including server <-> web UI communication). While this was nice for all the reasons other people have stated, protos kinda ended up sucking to work with on the front-end.
+Protos are a serialization contract and should remain such. Too much proto-specific logic ended up bleeding into our web codebase (dealing with oneofs, enums, etc). GQL's IDL on the other hand ended up being a perfect middle-ground. It gave us a nice layer to deal with that serialization specific stuff, while letting the front-end work with better data models (interfaces, unions, string enums, etc.). GQL's IDL and TypeScript are a great match, since GQL types are ultimately just discriminated unions, which TS handles like a charm.
+
+//
+
+https://github.com/percybolmer/grpcexample/tree/master/ui/pingpongapp
+https://itnext.io/embedding-a-web-application-in-a-golang-binary-f9733b25bbf7
+https://medium.com/safetycultureengineering/proxy-grpc-web-directly-in-your-go-server-without-envoy-7fbec326cb21
+https://github.com/improbable-eng/grpc-web/issues/1054
+!!!!!
+https://stackoverflow.com/questions/62421376/how-to-use-grpc-web-without-envoy
+
+--------------------------------------------------------------------------------
+
+APIs in a web context.
+
+--------------------------------------------------------------------------------
+
+https://github.com/OAI/OpenAPI-Specification
+https://stackoverflow.com/questions/48123867/open-api-vs-rest-api-difference
+
+!!!!!
+https://www.programmableweb.com/news/whats-difference-between-rest-and-swagger/analysis/2018/08/06
+
+!!!!!
+https://www.koyeb.com/blog/understanding-rest-grpc-graphql-and-openapi-to-build-your-apis
+
+--------------------------------------------------------------------------------
+
+* !!!!! https://old.reddit.com/r/programming/comments/1xm0d2/rest_api_versioning_schemes_and_how_theyre_always/
+
+* // http vs grpc
+  * !!!!! https://old.reddit.com/r/dotnet/comments/nd649x/what_the_hell_is_grpc_and_when_should_i_use_it/
+  * https://old.reddit.com/r/programming/comments/nqhngc/grpc_vs_rest_comparing_apis_architectural_styles/
+  * https://www.developertoarchitect.com/lessons/lesson60.html
+  * https://www.imaginarycloud.com/blog/grpc-vs-rest/
+  * https://github.com/google/rejoiner
+  * https://old.reddit.com/r/golang/comments/br4awi/grpc_vs_rest_with_golang_when_is_it_worth_using/
+    * !!!!! After trying gRPC I will NEVER go back to REST. If I were writing any API (even for front end consumption) I would write it all in gRPC. I highly suggest trying a real world example in gRPC and REST. The moment you make a change or create client libraries in different languages is the moment you will realize how asinine and time wasting REST is.
+
+    REST is the worst .. game of telephone ever. "I'm going to write a server based on what I THINK the contract is (swagger doc), then you can write a client based on what YOU think the contract is".
+
+    Two machines are communicating...they should have a clear contract with strong types, and autogenerated server and client code, so changes can be propagated as quickly as possible without a human trying to parse another document written by a human to understand how to write their code.
+
+    But the real stupidity of REST lies in its "beautiful and simple layer of abstraction". Should data be in the HTTP header? The URL path parameter? A query parameter? Or maybe the body? What should the URL be for something that's not an obvious CRUD operation? Should it be a POST or a PUT? What if I want to stream data? Which of the generic 4 verbs should I be forced to use to define what has always been a damn function call with input and output? I know I sound salty, but it really does drive me insane.
+  * !!!!! https://jbrandhorst.com/
+    * https://jbrandhorst.com/post/state-of-grpcweb/
+    * https://jbrandhorst.com/post/postgres/
+  * !!!!! https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
+  * https://old.reddit.com/r/RedditEng/comments/rdfbin/reddit_and_grpc_the_second_part/
+  * !!!!! https://old.reddit.com/r/coding/comments/m5m81e/rest_vs_grpc_vs_graphql/
+    * What this doesn't note that's important - in practice, GraphQL is an overly complex protocol even for the problem domain it is intended to solve (reduction of over-fetching), which leads to complicated parsers and query planners. This leads to slow parsing, followed by slow planning, followed by slow execution; in my experience using out of the box GraphQL libraries such as graphene, the performance hit from using GraphQL on the server significantly outweighs the performance improvement from the tailored result, ignoring the fact that with REST you can avoid over-fetching as well.
+
+    Furthermore, GraphQL essentially breaks caching, which is itself also likely to outweigh any performance improvement. Sabotaging caching from your API endpoints from the get-go is a serious defect: micro-caching alone can reduce the majority of server processing times to sub-millisecond with only a minor consistency cost, which is negligible in 90% of situations with a bit of forethought.
+
+    Furthermore, with http/2 adoption widespread, and QUIC support gaining traction, overfetching/underfetching in REST is much less of an issue than it used to be, because the cost of underfetching has been reduced.
+
+    In practice, on a modern tech stack (i.e., a browser that supports at least http/2, and your server supports at least http/2), there is almost no penalty for making two small requests rather than 1 large request.
+
+    Hence, one can modify REST slightly to include the same single responsibility principle that apply to traditional programming / gRPC, and you won't need to update APIs unless there is some significant change in the data, and when you do few things will need to change.
+    * !!!!! I don't want this to turn into a REST vs GQL discussion because that's not the point here however unless you had 1st hand experience with GQL, it would be a pretty limiting career move to make a statement like this.
+
+    Over the years I've worked with many different implementations of REST APIs. Recently (a little over a year now), I led a team to reimplement our entire backend infrastructure in GraphQL. REST has its place and is of course a lot more performant, but trust me when I say this if I'm ever tasked to implement another backend API that involves more than 3 different endpoints/objects, I am hands down using GraphQL.
+
+    Yes, the startup complexity is high, but most of that logic is "tucked away" in libraries. GraphQL API is self-documenting. This is absolutely huge and simplifies the development by a magnitude of 10. I know there are tools like Swagger that "connect" with REST API endpoints but the biggest constant struggle with REST development is simply coming up with URIs. With GrahpQL, you have a single URL to work with (do not underestimate this point), and once you know where the API is defined, you know exactly everything about that API and what it supports. You know which parameters are optional, which ones are required, how each object is related, and how to find them. No additional libraries required, all from a mandatory schema file that you must define when working with GraphQL.
+
+    Again, I'm not stating that GQL is better than REST, each has its advantages and disadvantages. All I'm trying to tell you is to "never say never" because you might be missing out on something you don't fully understand yet.
+  * !!!!! https://cloud.google.com/blog/products/api-management/understanding-grpc-openapi-and-rest-and-when-to-use-them
+    * The blogger says that many people find it easy to define an RPC API for this problem, but struggle to figure out how to solve the same problem using HTTP, wasting a lot of time and energy without realizing any benefit to their project. I agree. One reason is that designing an API on top of HTTP is a skill that has to be learned, and there are many options.
+  * !!!!! https://docs.microsoft.com/en-us/aspnet/core/grpc/comparison?view=aspnetcore-6.0
+  * https://grpc.io/docs/platforms/web/basics/
+
+* // open api
+  * https://www.openapis.org/
+  * https://old.reddit.com/r/AskProgramming/comments/hfntzv/openapi_the_good_the_bad_and_the_ugly/
+  * https://old.reddit.com/r/programming/comments/frzkj8/theres_no_reason_to_write_openapiswagger_by_hand/
+  * 
+
+* // open api, json schema
+  * https://blog.stoplight.io/openapi-json-schema
+    * https://github.com/OAI/OpenAPI-Specification/pull/1977
+  * https://github.com/OAI/OpenAPI-Specification/blob/main/schemas/v2.0/schema.json
+  * http://json-schema.org/blog/posts/validating-openapi-and-json-schema
+  * https://apitools.dev/openapi-schemas/
+  * https://www.openapis.org/blog/2021/02/18/openapi-specification-3-1-released
+  * https://www.npmjs.com/package/openapi-json-schema
+  * https://apisyouwonthate.com/blog/json-schema-bundling-finally-formalised
+  * https://morioh.com/p/dbab12f393a4
+
+* https://speedscale.com/2021/07/20/choosing-an-api-technology-grpc-rest-graphql/
+  * !!!!! Introduced by Facebook in 2015, GraphQL represents a different line of API tech evolution. Whereas gRPC focuses on blazing fast service-to-service communication, GraphQL provides an alternative way for browser-based clients to interact with API servers.
+
+  GraphQL enables each client to define exactly what shape of data it needs for a particular use case and retrieve all that data in a single roundtrip.
+
+  As opposed to REST, GraphQL doesn’t respect the semantics of HTTP verbs: most requests are made with POST. The response from the server matches the format of the request.
+
+  GraphQL’s read operations are referred to as queries, and write operations are called mutations. GraphQL requests look very much like a query language.
+
+  * !!!!!
+  Use REST if:
+  You’re building a CRUD-style web application.
+  Your API is mostly manipulating well-structured related data.
+  Your API needs to be highly cacheable, including support for intermediate proxy caching.
+
+  Use gRPC if:
+  Your API is private and powers communications between parts of a microservices architecture.
+  Your API is mostly about actions.
+  You need to collect data from IoT devices.
+  You’re implementing a Backend For Frontend pattern for a mobile application with stable API request patterns.
+  Performance is a critical requirement.
+
+  Use GraphQL if:
+  You’re building a public API and you want it to be highly flexible in terms of customizing requests.
+  You want to defer defining your API surface until you have a chance to analyze which resources your clients tend to request.
+  You want to aggregate internal data from multiple sources into a public API for multiple clients with varying data requirements.
+
+* https://www.redhat.com/architect/apis-soap-rest-graphql-grpc
+* https://medium.com/devops-dudes/graphql-vs-rest-vs-grpc-411a0a60d18d
+* https://hevodata.com/learn/grpc-vs-graphql/
+* https://technologyrivers.com/blog/rest-vs-grpc-vs-graphql/
+* https://news.ycombinator.com/item?id=18296390
+  * Conceptually, gRPC gives much more server predictability at the expense of client flexibility whereas GraphQL optimizes for the opposite. Sure you can have gRPC calls with lots of client options or GraphQL servers with lots of restrictions. There are security/performance concerns around client flexibility and time-to-market concerns around server-side rigidity. I prefer the latter in most cases and don't expose GraphQL on the public web (again, I know GraphQL can be secured and made more predictable/inflexible).
+  * As I understand it, they are essentially very different technologies. GraphQL focuses on providing a DSL for requesting subsets of data from a web endpoint that "talks" JSON. gRPC-Web is just a wrapper around gRPC so that you can expose your RPC endpoints in a front-end friendly manner.
+  In other words: GraphQL is akin to SQL, while gRPC-Web would be closer to a serialization/exchange format like XML/SOAP.
+  * gRPC is lightweight, highly performant, difficult to debug, difficult to detect breaking schema changes, lots of magic going on to learn compared to REST or GraphQL.
+  GraphQL is much heavier, easier to test and debug and has some performance optimisations like data loader and is better for multiple clients to consume. I’d say it’s easier to manage schema changes but it’s probably not empirical. I guess huge overheads by comparison to gRPC but I’m guessing data over the wire is a much larger piece of the pie.
+
+  Personally think GraphQL is far superior for web clients and I think gRPC for services in general can be a pretty large overhead for most teams... at least initially you are going to get things done much faster with restful services.
+
+* // hateoas
+* https://old.reddit.com/r/webdev/comments/66ptqj/does_anyone_really_use_hateoas_in_their_apis/
+* https://old.reddit.com/r/rails/comments/jct7rc/implementing_hateoas_in_rails_api/
+* https://en.wikipedia.org/wiki/HATEOAS
+* https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
+  * !!!!!
+* 
+* 
+
+* // webhooks
+  * https://stackoverflow.com/questions/2945449/is-webhooks-a-style-pattern-or-a-specification
+  * https://en.wikipedia.org/wiki/Webhook
+  * https://stripe.com/docs/webhooks/best-practices
+  * https://w3c.github.io/w3c-api/webhooks
+  * https://github.com/cloudevents/spec/blob/v1.0.1/http-webhook.md
+  * https://github.com/cloudevents/spec/blob/v1.0.1/spec.md
+  
+!!!!! https://dev.to/andreidascalu/soap-vs-rest-vs-grpc-vs-graphql-1ib6
+
+SOAP vs REST vs gRPC vs GraphQL
+#
+grpc
+#
+php
+#
+webservices
+As far as comparisons go, this might seem a bit weird. While the first two are (were) traditional competing "standards", the other two are a bit different in scope.
+What unites them is the general idea of transferring control of data manipulation. Each of these allow an external entity to access your data within some boundaries.
+
+SOAP
+The "Simple Object Access Protocol" (though largely this meaning has been rightly forgotten since it's anything but simple) is the oldest system for data access as well as the bane of my university years.
+
+It communicates using XML content over HTTP (mostly, but the transport isn't a part of the standard - so it could be used over anything) for the specific goal of invoking procedures exposed by a service.
+
+This requires the service to define the available procedures, its parameters and types, content format, responses, etc in a WSDL that defines the service while it also needs a bunch of other XML-offshoots (XSD, etc) to define custom types and objects.
+
+I bet you're seeing where the simplicity has gone to die.
+
+Upsides
+SOAP allows for code generation based on XML, XML is (was) a popular and ubiquitous standard with plenty of flexibility (eg: namespacing). As text-based standard it's easy to debug and has no restrictions in transport. Since the procedures are described in a WSDL, the file acts as a binding contract with respect to messages and types.
+
+Downsides
+XML is very verbose and message size tends to grow exponentially. By necessity, SOAP is one way (as in a client can't be also a server and the other way around - even if both applications can act as web servers). Support for code generation in modern languages is lackluster (your best bets are Java, Python and C#, while SOAP with the likes of Go/Rust/PHP/Elixir are exercises in frustration).
+
+All in all, SOAP is all but dead in favour of more flexible and efficient communication methods (though my nightmares have returned after a few projects around insurance and banking).
+
+REST
+The REpresentational State Transfer is probably the thing most people think about when someone says "web API". In fact, it's so popular that it's the thing people think about when someone says "API", nevermind the web (or HTTP) part.
+
+As a standard, it's surprisingly lightweight as it only specifies the use of HTTP and HTTP concepts (verbs, codes, states, etc) in order to access remote entities found at various URIs. This has led to the existence of a lot of best-practice scenarios around REST, that deal with the unsaid: how to define and organise URIs, the boundaries of the data manipulated at a given URI, how to encapsulate data, how and what to return, etc.
+
+Another important property of REST services is statelessness: no context should be preserved between requests, each is treated in isolation and must have a finality of its own.
+
+While JSON is the most common content type for REST data, XML is not unheard of and HTML itself is available.
+
+Upsides
+Building on the existing standards of HTTP comes with both flexibility and constraints. Most of transport concerns are handled by existing standards and evolve with it. Verbs are associated with operations (making simple a mapping of CRUD operations for example), entities lend name and meaning to URIs. Simple conventions make interacting with REST APIs fairly straightforward.
+JSON makes REST particularly straightforward to use for frontend services where JS is ubiquitous so that the translation of data to objects is instant.
+Also, JSON is quite human readable and easy to debug.
+
+Downsides
+In practice, REST services are rarely as forthcoming as intended. There are endless debates about which verbs to use when and whether exposed entities are the same as data modelled in the data layer (hint: don't do that, don't leak this kind of details, use DTOs for the win).
+The flexibility often translates into implementation chaos and on top of that there's no binding contract on the structure use for messages.
+A particular pet peeve of mine is when people return HTTP 200 response in any case and instead encode an error status in a response body. That's what SOAP people used to do!
+
+GRPC
+gRPC Remote Procedure Call is a recursive acronym for a method defined around all the advantages of HTTP/2 doubled on by the fact it uses a binary format for transfer (compiled protocol buffers) which is extremely efficient.
+
+In the likes of SOAP, gRPC's goal is to enable procedure calls rather than data interactions, making it somewhat SOAP-like in concept.
+
+It's Google's brainchild.
+
+Upsides
+Very efficient. Takes advantage of all HTTP/2 has to offer in that you can send things synchronously (waiting for a response), you can stream, you can multiplex, all over the same connection. Add the fact that binary messages are damn small, you got a sweet deal for those times when performance is critical.
+Code generation makes things a breeze to setup and HTTP/2 needs TLS so you're somewhat forced into a minimum of security.
+
+Downsides
+Hard to debug, as messages are binary and not human readable. While it's supported across languages, some have limitations (eg: you can't have PHP gRPC servers, only clients) and due to the nature of HTTP/2 there's no support (currently) directly in frontend applications.
+Since you must (and should) have TLS everywhere, you'll need to factor that into setup requirements (whether it's acquiring certificates for internal use from a known CA or creating your own internal CA to issue certificates, but you'll need to add it as trusted across your infrastructure/containers/etc).
+
+GraphQL
+GraphQL sits somewhere between REST and gRPC. It aims to make requesting data easy through its own query language that gives control to the client.
+
+It's Facebook's brainchild.
+
+Upsides
+Its reliance on JSON makes it somewhat REST-like but with the added benefit that the adaptive queries means you can request for the data you want as you want it => no more multiple requests to get everything you need.
+It has schema validation and typing so in that sense it's somewhat close to how gRPC defines things.
+
+Downsides
+All the flexibility takes a toll on the ability to cache. Just about none of the GraphQL requests are similar to warrant caching.
+Despite the name, it's not quite a graph interface. You can't take all the ancestors of a parent entity, for example.
+
+What is the point?
+I've been plagued by SOAP and I think I'm not the only one. I want to warn people about the abomination that still roams the dark underbelly of web development.
+
+I've been a dedicated REST developer and took me years to develop a methodical approach to API design. It's ok, but I really think there should be a better way. Despite all the good practices and so on, the vast majority of projects end in a sort of manageable chaos and the lack of verifiable contracts on messaging is a killer.
+
+I've tried GraphQL and I see its value. It's awesome for frontend development (you can see its Facebook origins make it a friend to React) but it's a one-way street. I can't imagine making microservices to talk among themselves in GraphQL. It's more structured than REST but the benefits are pretty much client-side.
+
+GRPC is growing on me. Depending on your tooling, there may be some overhead. PHP setup with building grpc_php_plugin is painful and heavily dependent on OS (sorry Windows users, you may need to get your hands dirty with WSL2 - but please let me know if I'm wrong though the last time I checked the prebuilt plugin was deprecated). Going at GRPC via Go is amazing (yeah ... coming from Google after all) but with Rust/DotNet/Elixir isn't bad either.
+
+I can only hope to get my GRPC habits up and running the way I did with REST.
+
+//
+
+https://daily.dev/blog/grpc-vs-rest
+https://hevodata.com/learn/grpc-vs-rest-apis/
+https://blog.dreamfactory.com/grpc-vs-rest-how-does-grpc-compare-with-traditional-rest-apis/
+https://www.baeldung.com/rest-vs-grpc
+https://www.yonego.com/nl/blogs/why-milliseconds-matter/
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../bookmarks/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../../bookmarks/frontend/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../bookmarks/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../../bookmarks/frontend/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="../../docs/more/script.js"></script>
+    </body>
+</html>
