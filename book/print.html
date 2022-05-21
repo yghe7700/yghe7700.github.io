@@ -1,0 +1,3442 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="docs/more/styles.css">
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html">About</a></li><li class="chapter-item expanded "><a href="notes/index.html">Notes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="notes/lessons-learned/index.html">Lessons Learned Over the Past Few Years</a></li><li class="chapter-item expanded "><a href="notes/hybrid-serverless-traditional/index.html">Hybrid Serverless Traditional</a></li><li class="chapter-item expanded "><a href="notes/api-adapter-pattern/index.html">API Adapter Pattern</a></li><li class="chapter-item expanded "><a href="notes/typesafe-configuration/index.html">Typesafe Configuration</a></li><li class="chapter-item expanded "><a href="notes/ideas-vs-execution/index.html">Ideas vs Execution</a></li><li class="chapter-item expanded "><a href="notes/on-character/index.html">On Character</a></li></ol></li><li class="chapter-item expanded "><a href="bookmarks/index.html">Bookmarks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bookmarks/api/index.html">API</a></li><li class="chapter-item expanded "><a href="bookmarks/frontend/index.html">Frontend</a></li><li class="chapter-item expanded "><a href="bookmarks/styling/index.html">Styling</a></li><li class="chapter-item expanded "><a href="bookmarks/backend/index.html">Backend</a></li><li class="chapter-item expanded "><a href="bookmarks/data/index.html">Data</a></li><li class="chapter-item expanded "><a href="bookmarks/platform/index.html">Platform</a></li><li class="chapter-item expanded "><a href="bookmarks/release/index.html">Release</a></li><li class="chapter-item expanded "><a href="bookmarks/operations/index.html">Operations</a></li><li class="chapter-item expanded "><a href="bookmarks/execution/index.html">Execution</a></li><li class="chapter-item expanded "><a href="bookmarks/languages/index.html">Languages</a></li><li class="chapter-item expanded "><a href="bookmarks/custom/index.html">Custom</a></li><li class="chapter-item expanded "><a href="bookmarks/more/index.html">More</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="about"><a class="header" href="#about">About</a></h1>
+<!----------------------------------------------------------------------------->
+<p><span data-pres><iframe data-pres='attp'></iframe></span></p>
+<script data-pres='attp' type='text/x-markdown'>[//]: # (#/_docs)
+
+class: center, middle
+
+<!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+
+
+
+[//]: # (index)
+
+
+
+<!----------------------------------------------------------------------------->
+
+# Title
+
+---
+
+# Agenda
+
+1. Introduction
+2. Deep-dive
+3. ...
+
+---
+
+```js
+class X {
+  
+}
+```
+
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+
+
+
+[//]: # (_tmpl:index)
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+[//]: # (y000:index)
+<!--!!
+
+!!--></script>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="notes"><a class="header" href="#notes">Notes</a></h1>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="lessons-learned-over-the-past-few-years"><a class="header" href="#lessons-learned-over-the-past-few-years">Lessons Learned Over the Past Few Years</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. legacy, learning, lessons ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="hybrid-serverless-traditional"><a class="header" href="#hybrid-serverless-traditional">Hybrid Serverless Traditional</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. best of both worlds is possible with sb + backend ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="api-adapter-pattern"><a class="header" href="#api-adapter-pattern">API Adapter Pattern</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. design a decouplable API layer for better design ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="typesafe-configuration"><a class="header" href="#typesafe-configuration">Typesafe Configuration</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. config can have the desirabilities of code via ts and json schema ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="ideas-vs-execution"><a class="header" href="#ideas-vs-execution">Ideas vs Execution</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. sometimes, i > e, i < e, i ~ e .. it is what it is .. understand your situation,
+as well as startup obituary ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="on-character"><a class="header" href="#on-character">On Character</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. skills, talents, experience may be fundamental .. but character ought to be non-negotiable ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="title"><a class="header" href="#title">Title</a></h1>
+<!------------------------------------------------------------------------------
+
+
+* awesome-{..}
+  * awesome-api
+    * https://github.com/Kikobeats/awesome-api
+  * awesome-frontend
+    * https://github.com/syaning/awesome-frontend
+    * https://github.com/sorrycc/awesome-javascript
+    * https://github.com/uhub/awesome-javascript
+    * https://github.com/enaqx/awesome-react
+    * https://github.com/brillout/awesome-react-components
+    * https://github.com/infinitered/awesome-react-testing
+    * https://github.com/unicodeveloper/awesome-nextjs
+    * https://github.com/TheComputerM/awesome-svelte
+    * https://github.com/rocketlaunchr/awesome-svelte
+    * https://github.com/janosh/awesome-svelte-kit
+    * https://github.com/one-aalam/awesome-svelte-kit
+    * https://github.com/rajasegar/awesome-micro-frontends
+    * https://github.com/AdrienTorris/awesome-blazor
+  * awesome-styling
+    * https://github.com/awesome-css-group/awesome-css
+    * https://github.com/troxler/awesome-css-frameworks
+    * https://github.com/Famolus/awesome-sass
+    * https://github.com/therebelrobot/awesome-bootstrap
+    * https://github.com/aniftyco/awesome-tailwindcss
+    * https://github.com/getbem/awesome-bem
+    * https://github.com/styled-components/awesome-styled-components
+    * https://github.com/nadunindunil/awesome-material-ui
+    * https://github.com/noahbuscher/inspire
+    * https://github.com/gztchan/awesome-design
+    * https://github.com/nicolesaidy/awesome-web-design
+    * https://github.com/batoreh/awesome-ux
+    * https://github.com/uxreview/awesome-ux
+    * https://github.com/gschema/awesome-ux
+    * https://github.com/friedrith/awesome-ux-designer
+    * https://github.com/react-figma/awesome-figma
+  * awesome-backend
+    * https://github.com/rajikaimal/awesome-express
+    * https://github.com/blitz-js/awesome-blitzjs
+    * https://github.com/wsvincent/awesome-django
+    * https://github.com/shahraizali/awesome-django
+    * https://github.com/chiraggude/awesome-laravel
+    * https://github.com/TimothyDJones/awesome-laravel
+    * https://github.com/gramantin/awesome-rails
+    * https://github.com/dpaluy/awesome-rails
+    * https://github.com/quozd/awesome-dotnet
+    * https://github.com/thangchung/awesome-dotnet-core
+    * https://github.com/ThomasVitale/awesome-spring
+    * https://github.com/stunstunstun/awesome-spring-boot
+    * https://github.com/mfornos/awesome-microservices
+    * https://github.com/mjebrahimi/Awesome-Microservices-DotNet
+    * https://github.com/droptheplot/awesome-phoenix
+  * awesome-data
+    * https://github.com/0xnr/awesome-bigdata
+    * https://github.com/NajiElKotob/Awesome-BigData
+    * https://github.com/igorbarinov/awesome-data-engineering
+    * https://github.com/thenaturalist/awesome-business-intelligence
+    * https://github.com/NajiElKotob/Awesome-Power-BI
+    * https://github.com/shlomi-noach/awesome-mysql
+    * https://github.com/jthegedus/awesome-firebase
+    * https://github.com/afonsopacifer/awesome-firebase
+    * https://github.com/GiovanniSM20/awesome-supabase
+    * https://github.com/GiovanniSM20/awesome-supabase/blob/main/README.md
+    * https://github.com/tommyod/awesome-pandas
+    * https://github.com/krzjoa/awesome-python-data-science
+    * https://github.com/dhamaniasad/awesome-postgres
+    * https://github.com/agarcialeon/awesome-database
+    * https://github.com/pingcap/awesome-database-learning
+    * 
+  * awesome-platform
+    * https://github.com/veggiemonk/awesome-docker
+    * https://github.com/docker/awesome-compose
+    * https://github.com/ramitsurana/awesome-kubernetes
+    * https://github.com/operator-framework/awesome-operators
+    * https://operatorhub.io/
+    * https://github.com/cdwv/awesome-helm
+    * https://github.com/shuaibiyy/awesome-terraform
+    * https://github.com/hashicorp/awesome-terraform-enterprise
+    * https://github.com/tomhuang12/awesome-k8s-resources
+    * https://github.com/dastergon/awesome-sre
+    * https://github.com/SquadcastHub/awesome-sre-tools
+    * https://github.com/pulumiverse/awesome-pulumi
+    * https://github.com/aws-cloudformation/awesome-cloudformation
+    * https://github.com/kolomied/awesome-cdk
+    * https://github.com/awesome-cdk
+    * https://github.com/donnemartin/awesome-aws
+    * https://github.com/jassics/awesome-aws-security
+    * https://github.com/festum/awesome-servicemesh
+    * 
+    * 
+  * awesome-release
+    * https://github.com/dictcp/awesome-git
+    * https://github.com/sdras/awesome-actions
+    * https://github.com/kodepandai/awesome-gh-cli-extensions
+    * https://github.com/cicdops/awesome-ciandcd
+    * https://github.com/ligurio/awesome-ci
+    * https://github.com/myugan/awesome-cicd-security
+    * https://github.com/weaveworks/awesome-gitops
+  * awesome-operations
+    * https://github.com/semantalytics/awesome-kafka
+    * https://github.com/infoslack/awesome-kafka
+    * https://github.com/monksy/awesome-kafka
+    * https://github.com/pranavgupta1234/awesome-redis-optimizations
+    * https://github.com/JamzyWang/awesome-redis
+    * https://github.com/dzharii/awesome-elasticsearch
+    * https://github.com/adriannovegil/awesome-observability
+    * https://github.com/dukelion/awesome-observability
+    * https://github.com/crazy-canux/awesome-monitoring
+    * https://github.com/Enapiuz/awesome-monitoring
+  * awesome-execution
+    * https://github.com/KrishMunot/awesome-startup
+    * https://github.com/heyspacetime/awesome-startup
+    * https://github.com/alec-c4/awesome-startups
+    * https://github.com/niladridutt/awesome-startup
+    * https://github.com/eferrares/awesome-startup-resources
+    * https://github.com/ahmadnassri/awesome-startup-resources
+    * https://github.com/Ibexoft/awesome-startup-tools-list
+    * // .. management .. leadership ..
+    * !!!!! https://github.com/kuchin/awesome-cto
+    * https://github.com/LappleApple/awesome-leading-and-managing
+  * awesome-language
+    * https://github.com/h4cc/awesome-elixir
+    * https://github.com/akullpp/awesome-java
+    * https://github.com/pditommaso/awesome-java
+    * https://github.com/ziadoz/awesome-php
+    * https://github.com/uhub/awesome-php
+    * https://github.com/denolib/awesome-deno
+    * https://github.com/markets/awesome-ruby
+    * https://github.com/sdogruyol/awesome-ruby
+    * https://github.com/vinta/awesome-python
+    * https://github.com/trananhkma/fucking-awesome-python
+    * https://github.com/avelino/awesome-go
+    * https://github.com/uhub/awesome-go
+    * https://github.com/rust-unofficial/awesome-rust
+    * https://github.com/uhub/awesome-c-sharp
+  * awesome-custom
+    * https://github.com/sindresorhus/awesome
+    * https://github.com/bayandin/awesome-awesomeness
+    * https://github.com/TheJambo/awesome-testing
+    * https://github.com/atinfo/awesome-test-automation
+    * https://github.com/dastergon/awesome-chaos-engineering
+    * https://github.com/markodenic/web-development-resources
+    * https://github.com/ghoullier/awesome-template-literal-types
+    * https://github.com/dzharii/awesome-typescript
+    * https://github.com/github/gitignore
+    * https://github.com/noopsjapan/awesome-noops
+    * https://github.com/kairichard/awesome-nocode-lowcode
+    * https://github.com/dustinspecker/awesome-eslint
+    * https://github.com/lauragift21/awesome-learning-resources
+    * https://github.com/frutik/awesome-search
+    * https://github.com/hwclass/awesome-buildless
+    * https://github.com/tayllan/awesome-algorithms
+    * 
+  * awesome-more
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="api"><a class="header" href="#api">API</a></h1>
+<!------------------------------------------------------------------------------
+
+* https://www.freecodecamp.org/news/what-is-an-api-and-how-to-test-it/
+* https://www.imaginarycloud.com/blog/grpc-vs-rest/
+
+!!!!!
+https://news.ycombinator.com/item?id=18863081
+// GRPC (OVER WEB STREAMS) IS THE FUTURE ..
+
+* This exists with something like OpenAPI, but Protobuf is much simpler. And then you layer something like gRPC on top of that to get all the HTTP2 benefits, and its obvious why its gaining popularity.
+
+* gRPC and other modern RPC protocols/SOA frameworks are basically "the good parts from SOAP".
+
+* We built out our gRPC services starting about 8 months ago. I pounded my fists on the gRPC-web issue board a bunch of times. Things started moving. In the end, it was too little and the effort is too divided. Also the route for which they wanted to implement streaming was, personally, poorly designed.
+We have since switched to GraphQL and haven't looked back.
+
+* !!!!! GQL and gRPC are absolutely complementary. Having resolvers fan out to gRPC-backed microservices has been great at our company. We initially used protos for all of our service contracts (including server <-> web UI communication). While this was nice for all the reasons other people have stated, protos kinda ended up sucking to work with on the front-end.
+Protos are a serialization contract and should remain such. Too much proto-specific logic ended up bleeding into our web codebase (dealing with oneofs, enums, etc). GQL's IDL on the other hand ended up being a perfect middle-ground. It gave us a nice layer to deal with that serialization specific stuff, while letting the front-end work with better data models (interfaces, unions, string enums, etc.). GQL's IDL and TypeScript are a great match, since GQL types are ultimately just discriminated unions, which TS handles like a charm.
+
+//
+
+https://github.com/percybolmer/grpcexample/tree/master/ui/pingpongapp
+https://itnext.io/embedding-a-web-application-in-a-golang-binary-f9733b25bbf7
+https://medium.com/safetycultureengineering/proxy-grpc-web-directly-in-your-go-server-without-envoy-7fbec326cb21
+https://github.com/improbable-eng/grpc-web/issues/1054
+!!!!!
+https://stackoverflow.com/questions/62421376/how-to-use-grpc-web-without-envoy
+
+--------------------------------------------------------------------------------
+
+APIs in a web context.
+
+--------------------------------------------------------------------------------
+
+https://github.com/OAI/OpenAPI-Specification
+https://stackoverflow.com/questions/48123867/open-api-vs-rest-api-difference
+
+!!!!!
+https://www.programmableweb.com/news/whats-difference-between-rest-and-swagger/analysis/2018/08/06
+
+!!!!!
+https://www.koyeb.com/blog/understanding-rest-grpc-graphql-and-openapi-to-build-your-apis
+
+--------------------------------------------------------------------------------
+
+* !!!!! https://old.reddit.com/r/programming/comments/1xm0d2/rest_api_versioning_schemes_and_how_theyre_always/
+
+* // http vs grpc
+  * !!!!! https://old.reddit.com/r/dotnet/comments/nd649x/what_the_hell_is_grpc_and_when_should_i_use_it/
+  * https://old.reddit.com/r/programming/comments/nqhngc/grpc_vs_rest_comparing_apis_architectural_styles/
+  * https://www.developertoarchitect.com/lessons/lesson60.html
+  * https://www.imaginarycloud.com/blog/grpc-vs-rest/
+  * https://github.com/google/rejoiner
+  * https://old.reddit.com/r/golang/comments/br4awi/grpc_vs_rest_with_golang_when_is_it_worth_using/
+    * !!!!! After trying gRPC I will NEVER go back to REST. If I were writing any API (even for front end consumption) I would write it all in gRPC. I highly suggest trying a real world example in gRPC and REST. The moment you make a change or create client libraries in different languages is the moment you will realize how asinine and time wasting REST is.
+
+    REST is the worst .. game of telephone ever. "I'm going to write a server based on what I THINK the contract is (swagger doc), then you can write a client based on what YOU think the contract is".
+
+    Two machines are communicating...they should have a clear contract with strong types, and autogenerated server and client code, so changes can be propagated as quickly as possible without a human trying to parse another document written by a human to understand how to write their code.
+
+    But the real stupidity of REST lies in its "beautiful and simple layer of abstraction". Should data be in the HTTP header? The URL path parameter? A query parameter? Or maybe the body? What should the URL be for something that's not an obvious CRUD operation? Should it be a POST or a PUT? What if I want to stream data? Which of the generic 4 verbs should I be forced to use to define what has always been a damn function call with input and output? I know I sound salty, but it really does drive me insane.
+  * !!!!! https://jbrandhorst.com/
+    * https://jbrandhorst.com/post/state-of-grpcweb/
+    * https://jbrandhorst.com/post/postgres/
+  * !!!!! https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
+  * https://old.reddit.com/r/RedditEng/comments/rdfbin/reddit_and_grpc_the_second_part/
+  * !!!!! https://old.reddit.com/r/coding/comments/m5m81e/rest_vs_grpc_vs_graphql/
+    * What this doesn't note that's important - in practice, GraphQL is an overly complex protocol even for the problem domain it is intended to solve (reduction of over-fetching), which leads to complicated parsers and query planners. This leads to slow parsing, followed by slow planning, followed by slow execution; in my experience using out of the box GraphQL libraries such as graphene, the performance hit from using GraphQL on the server significantly outweighs the performance improvement from the tailored result, ignoring the fact that with REST you can avoid over-fetching as well.
+
+    Furthermore, GraphQL essentially breaks caching, which is itself also likely to outweigh any performance improvement. Sabotaging caching from your API endpoints from the get-go is a serious defect: micro-caching alone can reduce the majority of server processing times to sub-millisecond with only a minor consistency cost, which is negligible in 90% of situations with a bit of forethought.
+
+    Furthermore, with http/2 adoption widespread, and QUIC support gaining traction, overfetching/underfetching in REST is much less of an issue than it used to be, because the cost of underfetching has been reduced.
+
+    In practice, on a modern tech stack (i.e., a browser that supports at least http/2, and your server supports at least http/2), there is almost no penalty for making two small requests rather than 1 large request.
+
+    Hence, one can modify REST slightly to include the same single responsibility principle that apply to traditional programming / gRPC, and you won't need to update APIs unless there is some significant change in the data, and when you do few things will need to change.
+    * !!!!! I don't want this to turn into a REST vs GQL discussion because that's not the point here however unless you had 1st hand experience with GQL, it would be a pretty limiting career move to make a statement like this.
+
+    Over the years I've worked with many different implementations of REST APIs. Recently (a little over a year now), I led a team to reimplement our entire backend infrastructure in GraphQL. REST has its place and is of course a lot more performant, but trust me when I say this if I'm ever tasked to implement another backend API that involves more than 3 different endpoints/objects, I am hands down using GraphQL.
+
+    Yes, the startup complexity is high, but most of that logic is "tucked away" in libraries. GraphQL API is self-documenting. This is absolutely huge and simplifies the development by a magnitude of 10. I know there are tools like Swagger that "connect" with REST API endpoints but the biggest constant struggle with REST development is simply coming up with URIs. With GrahpQL, you have a single URL to work with (do not underestimate this point), and once you know where the API is defined, you know exactly everything about that API and what it supports. You know which parameters are optional, which ones are required, how each object is related, and how to find them. No additional libraries required, all from a mandatory schema file that you must define when working with GraphQL.
+
+    Again, I'm not stating that GQL is better than REST, each has its advantages and disadvantages. All I'm trying to tell you is to "never say never" because you might be missing out on something you don't fully understand yet.
+  * !!!!! https://cloud.google.com/blog/products/api-management/understanding-grpc-openapi-and-rest-and-when-to-use-them
+    * The blogger says that many people find it easy to define an RPC API for this problem, but struggle to figure out how to solve the same problem using HTTP, wasting a lot of time and energy without realizing any benefit to their project. I agree. One reason is that designing an API on top of HTTP is a skill that has to be learned, and there are many options.
+  * !!!!! https://docs.microsoft.com/en-us/aspnet/core/grpc/comparison?view=aspnetcore-6.0
+  * https://grpc.io/docs/platforms/web/basics/
+
+* // open api
+  * https://www.openapis.org/
+  * https://old.reddit.com/r/AskProgramming/comments/hfntzv/openapi_the_good_the_bad_and_the_ugly/
+  * https://old.reddit.com/r/programming/comments/frzkj8/theres_no_reason_to_write_openapiswagger_by_hand/
+  * 
+
+* // open api, json schema
+  * https://blog.stoplight.io/openapi-json-schema
+    * https://github.com/OAI/OpenAPI-Specification/pull/1977
+  * https://github.com/OAI/OpenAPI-Specification/blob/main/schemas/v2.0/schema.json
+  * http://json-schema.org/blog/posts/validating-openapi-and-json-schema
+  * https://apitools.dev/openapi-schemas/
+  * https://www.openapis.org/blog/2021/02/18/openapi-specification-3-1-released
+  * https://www.npmjs.com/package/openapi-json-schema
+  * https://apisyouwonthate.com/blog/json-schema-bundling-finally-formalised
+  * https://morioh.com/p/dbab12f393a4
+
+* https://speedscale.com/2021/07/20/choosing-an-api-technology-grpc-rest-graphql/
+  * !!!!! Introduced by Facebook in 2015, GraphQL represents a different line of API tech evolution. Whereas gRPC focuses on blazing fast service-to-service communication, GraphQL provides an alternative way for browser-based clients to interact with API servers.
+
+  GraphQL enables each client to define exactly what shape of data it needs for a particular use case and retrieve all that data in a single roundtrip.
+
+  As opposed to REST, GraphQL doesn’t respect the semantics of HTTP verbs: most requests are made with POST. The response from the server matches the format of the request.
+
+  GraphQL’s read operations are referred to as queries, and write operations are called mutations. GraphQL requests look very much like a query language.
+
+  * !!!!!
+  Use REST if:
+  You’re building a CRUD-style web application.
+  Your API is mostly manipulating well-structured related data.
+  Your API needs to be highly cacheable, including support for intermediate proxy caching.
+
+  Use gRPC if:
+  Your API is private and powers communications between parts of a microservices architecture.
+  Your API is mostly about actions.
+  You need to collect data from IoT devices.
+  You’re implementing a Backend For Frontend pattern for a mobile application with stable API request patterns.
+  Performance is a critical requirement.
+
+  Use GraphQL if:
+  You’re building a public API and you want it to be highly flexible in terms of customizing requests.
+  You want to defer defining your API surface until you have a chance to analyze which resources your clients tend to request.
+  You want to aggregate internal data from multiple sources into a public API for multiple clients with varying data requirements.
+
+* https://www.redhat.com/architect/apis-soap-rest-graphql-grpc
+* https://medium.com/devops-dudes/graphql-vs-rest-vs-grpc-411a0a60d18d
+* https://hevodata.com/learn/grpc-vs-graphql/
+* https://technologyrivers.com/blog/rest-vs-grpc-vs-graphql/
+* https://news.ycombinator.com/item?id=18296390
+  * Conceptually, gRPC gives much more server predictability at the expense of client flexibility whereas GraphQL optimizes for the opposite. Sure you can have gRPC calls with lots of client options or GraphQL servers with lots of restrictions. There are security/performance concerns around client flexibility and time-to-market concerns around server-side rigidity. I prefer the latter in most cases and don't expose GraphQL on the public web (again, I know GraphQL can be secured and made more predictable/inflexible).
+  * As I understand it, they are essentially very different technologies. GraphQL focuses on providing a DSL for requesting subsets of data from a web endpoint that "talks" JSON. gRPC-Web is just a wrapper around gRPC so that you can expose your RPC endpoints in a front-end friendly manner.
+  In other words: GraphQL is akin to SQL, while gRPC-Web would be closer to a serialization/exchange format like XML/SOAP.
+  * gRPC is lightweight, highly performant, difficult to debug, difficult to detect breaking schema changes, lots of magic going on to learn compared to REST or GraphQL.
+  GraphQL is much heavier, easier to test and debug and has some performance optimisations like data loader and is better for multiple clients to consume. I’d say it’s easier to manage schema changes but it’s probably not empirical. I guess huge overheads by comparison to gRPC but I’m guessing data over the wire is a much larger piece of the pie.
+
+  Personally think GraphQL is far superior for web clients and I think gRPC for services in general can be a pretty large overhead for most teams... at least initially you are going to get things done much faster with restful services.
+
+* // hateoas
+* https://old.reddit.com/r/webdev/comments/66ptqj/does_anyone_really_use_hateoas_in_their_apis/
+* https://old.reddit.com/r/rails/comments/jct7rc/implementing_hateoas_in_rails_api/
+* https://en.wikipedia.org/wiki/HATEOAS
+* https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
+  * !!!!!
+* 
+* 
+
+* // webhooks
+  * https://stackoverflow.com/questions/2945449/is-webhooks-a-style-pattern-or-a-specification
+  * https://en.wikipedia.org/wiki/Webhook
+  * https://stripe.com/docs/webhooks/best-practices
+  * https://w3c.github.io/w3c-api/webhooks
+  * https://github.com/cloudevents/spec/blob/v1.0.1/http-webhook.md
+  * https://github.com/cloudevents/spec/blob/v1.0.1/spec.md
+  
+!!!!! https://dev.to/andreidascalu/soap-vs-rest-vs-grpc-vs-graphql-1ib6
+
+SOAP vs REST vs gRPC vs GraphQL
+#
+grpc
+#
+php
+#
+webservices
+As far as comparisons go, this might seem a bit weird. While the first two are (were) traditional competing "standards", the other two are a bit different in scope.
+What unites them is the general idea of transferring control of data manipulation. Each of these allow an external entity to access your data within some boundaries.
+
+SOAP
+The "Simple Object Access Protocol" (though largely this meaning has been rightly forgotten since it's anything but simple) is the oldest system for data access as well as the bane of my university years.
+
+It communicates using XML content over HTTP (mostly, but the transport isn't a part of the standard - so it could be used over anything) for the specific goal of invoking procedures exposed by a service.
+
+This requires the service to define the available procedures, its parameters and types, content format, responses, etc in a WSDL that defines the service while it also needs a bunch of other XML-offshoots (XSD, etc) to define custom types and objects.
+
+I bet you're seeing where the simplicity has gone to die.
+
+Upsides
+SOAP allows for code generation based on XML, XML is (was) a popular and ubiquitous standard with plenty of flexibility (eg: namespacing). As text-based standard it's easy to debug and has no restrictions in transport. Since the procedures are described in a WSDL, the file acts as a binding contract with respect to messages and types.
+
+Downsides
+XML is very verbose and message size tends to grow exponentially. By necessity, SOAP is one way (as in a client can't be also a server and the other way around - even if both applications can act as web servers). Support for code generation in modern languages is lackluster (your best bets are Java, Python and C#, while SOAP with the likes of Go/Rust/PHP/Elixir are exercises in frustration).
+
+All in all, SOAP is all but dead in favour of more flexible and efficient communication methods (though my nightmares have returned after a few projects around insurance and banking).
+
+REST
+The REpresentational State Transfer is probably the thing most people think about when someone says "web API". In fact, it's so popular that it's the thing people think about when someone says "API", nevermind the web (or HTTP) part.
+
+As a standard, it's surprisingly lightweight as it only specifies the use of HTTP and HTTP concepts (verbs, codes, states, etc) in order to access remote entities found at various URIs. This has led to the existence of a lot of best-practice scenarios around REST, that deal with the unsaid: how to define and organise URIs, the boundaries of the data manipulated at a given URI, how to encapsulate data, how and what to return, etc.
+
+Another important property of REST services is statelessness: no context should be preserved between requests, each is treated in isolation and must have a finality of its own.
+
+While JSON is the most common content type for REST data, XML is not unheard of and HTML itself is available.
+
+Upsides
+Building on the existing standards of HTTP comes with both flexibility and constraints. Most of transport concerns are handled by existing standards and evolve with it. Verbs are associated with operations (making simple a mapping of CRUD operations for example), entities lend name and meaning to URIs. Simple conventions make interacting with REST APIs fairly straightforward.
+JSON makes REST particularly straightforward to use for frontend services where JS is ubiquitous so that the translation of data to objects is instant.
+Also, JSON is quite human readable and easy to debug.
+
+Downsides
+In practice, REST services are rarely as forthcoming as intended. There are endless debates about which verbs to use when and whether exposed entities are the same as data modelled in the data layer (hint: don't do that, don't leak this kind of details, use DTOs for the win).
+The flexibility often translates into implementation chaos and on top of that there's no binding contract on the structure use for messages.
+A particular pet peeve of mine is when people return HTTP 200 response in any case and instead encode an error status in a response body. That's what SOAP people used to do!
+
+GRPC
+gRPC Remote Procedure Call is a recursive acronym for a method defined around all the advantages of HTTP/2 doubled on by the fact it uses a binary format for transfer (compiled protocol buffers) which is extremely efficient.
+
+In the likes of SOAP, gRPC's goal is to enable procedure calls rather than data interactions, making it somewhat SOAP-like in concept.
+
+It's Google's brainchild.
+
+Upsides
+Very efficient. Takes advantage of all HTTP/2 has to offer in that you can send things synchronously (waiting for a response), you can stream, you can multiplex, all over the same connection. Add the fact that binary messages are damn small, you got a sweet deal for those times when performance is critical.
+Code generation makes things a breeze to setup and HTTP/2 needs TLS so you're somewhat forced into a minimum of security.
+
+Downsides
+Hard to debug, as messages are binary and not human readable. While it's supported across languages, some have limitations (eg: you can't have PHP gRPC servers, only clients) and due to the nature of HTTP/2 there's no support (currently) directly in frontend applications.
+Since you must (and should) have TLS everywhere, you'll need to factor that into setup requirements (whether it's acquiring certificates for internal use from a known CA or creating your own internal CA to issue certificates, but you'll need to add it as trusted across your infrastructure/containers/etc).
+
+GraphQL
+GraphQL sits somewhere between REST and gRPC. It aims to make requesting data easy through its own query language that gives control to the client.
+
+It's Facebook's brainchild.
+
+Upsides
+Its reliance on JSON makes it somewhat REST-like but with the added benefit that the adaptive queries means you can request for the data you want as you want it => no more multiple requests to get everything you need.
+It has schema validation and typing so in that sense it's somewhat close to how gRPC defines things.
+
+Downsides
+All the flexibility takes a toll on the ability to cache. Just about none of the GraphQL requests are similar to warrant caching.
+Despite the name, it's not quite a graph interface. You can't take all the ancestors of a parent entity, for example.
+
+What is the point?
+I've been plagued by SOAP and I think I'm not the only one. I want to warn people about the abomination that still roams the dark underbelly of web development.
+
+I've been a dedicated REST developer and took me years to develop a methodical approach to API design. It's ok, but I really think there should be a better way. Despite all the good practices and so on, the vast majority of projects end in a sort of manageable chaos and the lack of verifiable contracts on messaging is a killer.
+
+I've tried GraphQL and I see its value. It's awesome for frontend development (you can see its Facebook origins make it a friend to React) but it's a one-way street. I can't imagine making microservices to talk among themselves in GraphQL. It's more structured than REST but the benefits are pretty much client-side.
+
+GRPC is growing on me. Depending on your tooling, there may be some overhead. PHP setup with building grpc_php_plugin is painful and heavily dependent on OS (sorry Windows users, you may need to get your hands dirty with WSL2 - but please let me know if I'm wrong though the last time I checked the prebuilt plugin was deprecated). Going at GRPC via Go is amazing (yeah ... coming from Google after all) but with Rust/DotNet/Elixir isn't bad either.
+
+I can only hope to get my GRPC habits up and running the way I did with REST.
+
+//
+
+https://daily.dev/blog/grpc-vs-rest
+https://hevodata.com/learn/grpc-vs-rest-apis/
+https://blog.dreamfactory.com/grpc-vs-rest-how-does-grpc-compare-with-traditional-rest-apis/
+https://www.baeldung.com/rest-vs-grpc
+https://www.yonego.com/nl/blogs/why-milliseconds-matter/
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="frontend"><a class="header" href="#frontend">Frontend</a></h1>
+<!------------------------------------------------------------------------------
+
+* // alpine
+* https://xcheat.jamesauble.com/2-8-2/index.html
+* https://blog.jamesauble.com/an-alpine-js-cheatsheet-made-with-alpine-js-51374924d779
+* https://referenceguide.dev/cheatsheet/alpinejs
+* https://www.alpinetoolbox.com/
+* 
+
+* https://devhints.io/react
+* https://www.freecodecamp.org/news/react-cheatsheet-with-real-world-examples/
+* https://www.codecademy.com/learn/react-101/modules/react-101-jsx-u/cheatsheet
+* https://www.frontendcheatsheets.com/react
+* https://github.com/typescript-cheatsheets/react
+* http://www.developer-cheatsheets.com/react
+* https://dev.to/ericchapman/react-cheat-sheet-updated-may-2021-1mcd
+* ! https://blog.bitsrc.io/react-with-typescript-cheatsheet-9dd891dc5bfe
+* https://alexsidorenko.com/blog/react-render-cheat-sheet/
+
+* // jest
+  * https://devhints.io/jest
+  * https://www.codecademy.com/learn/learn-react-testing/modules/jest/cheatsheet
+  * https://github.com/sapegin/jest-cheat-sheet
+  * https://www.devdecks.io/2021-jest-testing-cheatsheet
+  * https://medium.com/@eric_lum/cheatsheet-to-jest-testing-in-javascript-c4415b56cacb
+
+* // react testing library
+  * https://testing-library.com/docs/react-testing-library/cheatsheet/
+  * https://www.codecademy.com/learn/learn-react-testing/modules/react-testing-library/cheatsheet
+  * !!!!! https://github.com/testing-library/react-testing-library/blob/main/other/cheat-sheet.pdf
+  * https://wayfair.github.io/awesome-learning/courses/Testing/component-testing-rtl
+
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="styling"><a class="header" href="#styling">Styling</a></h1>
+<!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+* ! https://adam-marsden.co.uk/css-cheat-sheet
+* https://www.hostinger.com/tutorials/css-cheat-sheet
+* https://websitesetup.org/css3-cheat-sheet/
+* https://ilovecoding.org/blog/htmlcss-cheatsheet
+* https://www.codecademy.com/learn/learn-css/modules/learn-css-selectors-visual-rules/cheatsheet
+* https://www.toptal.com/css/css-cheat-sheet
+
+* // html
+  * https://htmlcheatsheet.com/
+  * https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf
+  * https://developer.mozilla.org/en-US/docs/Learn/HTML/Cheatsheet
+  * https://www.frontendcheatsheets.com/html
+  * http://www.simplehtmlguide.com/cheatsheet.php
+  * https://websitesetup.org/html5-cheat-sheet/
+  * 
+
+* https://nerdcave.com/tailwind-cheat-sheet
+* https://tailwindcomponents.com/cheatsheet/
+* https://flowbite.com/tools/tailwind-cheat-sheet/
+* https://umeshmk.github.io/Tailwindcss-cheatsheet/
+* https://github.com/gojutin/tailwind-cheatsheet
+* ! https://gist.github.com/LeCoupa/62eba8f2fed6aa43b7f397bb14d0a3c2
+* https://dev.to/zolidev/use-this-tailwind-css-cheat-sheet-to-speed-up-your-development-process-2l6p
+* https://flaviocopes.com/tailwind-cheat-sheet/
+
+--------------------------------------------------------------------------------
+
+// .. edward tufte ..
+// .. elements of ux ..
+// .. persuasion principle .. reduction ..
+// .. platform ux ..
+
+// ux
+// ia
+// ixd
+// id
+// typography
+// color theory
+// branding, design language, ..
+// gestalt, psychology, ..
+// software studies, philosophy, ..
+// .. visual hierarchy .. focal point is in content via the space allocated ..
+
+https://repo.zenk-security.com/Others/Information%20Architecture%20For%20The%20World%20Wide%20Web.pdf
+
+https://en.wikipedia.org/wiki/Visual_design_elements_and_principles
+https://en.wikipedia.org/wiki/Elements_of_art
+https://en.wikipedia.org/wiki/Principles_of_grouping
+
+https://www.resourcetechniques.co.uk/news/web-design/5-basic-elements-of-web-design-100152
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+https://elementor.com/blog/principles-of-website-design/
+!!!!!!!!!!
+https://www.feelingpeaky.com/9-principles-of-good-web-design/
+!!!!!!!!!!
+https://www.canva.com/learn/20-web-design-principles-follow/
+
+https://shortiedesigns.com/blog/10-top-principles-effective-web-design/
+https://webflow.com/blog/web-design-principles
+
+https://en.wikipedia.org/wiki/Information_design
+
+//
+https://xd.adobe.com/ideas/principles/web-design/12-dos-donts-web-design-2/
+https://www.justinmind.com/web-design/principles
+
+!!!!!!!!!!
+https://www.justinmind.com/ui-design/patterns
+
+// elements of art
+https://massart.edu/sites/default/files/Principles%20and%20Elements.pdf
+https://www.thoughtco.com/principles-of-art-and-design-2578740
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+https://medium.com/nightingale/improve-your-visualization-skills-using-tuftes-principles-of-graphical-design-3a0f40a53a2c
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+https://www.interaction-design.org/literature/article/guidelines-for-good-visual-information-representations
+https://www.edwardtufte.com/tufte/
+
+// ui patterns
+
+https://www.uxlibrary.org/explore/ui-design/ui-patterns-and-inspiration
+http://uipatterns.io/
+http://uipatterns.io/currency-input
+http://uipatterns.io/contextual-actions
+http://uipatterns.io/empty-states
+http://uipatterns.io/bottom-navigation
+http://uipatterns.io/lazy-signup
+http://ui-patterns.com/
+!!!!!
+http://ui-patterns.com/patterns
+
+* UI Patterns
+  * Getting input
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Navigation
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Dealing with data
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Social
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Miscellaneous
+    * 
+    * 
+    * 
+    * 
+    * 
+
+* Persuasion Patterns
+  * Cognition
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Game mechanics
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Perception and memory
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Feedback
+    * 
+    * 
+    * 
+    * 
+    * 
+  * Social
+    * 
+    * 
+    * 
+    * 
+    * 
+
+--------------------------------------------------------------------------------
+
+// TYPESAFE TAILWIND!!!!!
+https://www.kirillvasiltsov.com/writing/type-check-tailwind-css/
+https://github.com/muhammadsammy/tailwindcss-classnames
+https://flaviocopes.com/tailwind-cheat-sheet/
+
+!!!!! CLI
+https://stackoverflow.com/questions/762724/cli-patterns-antipatterns-for-usability
+
+* // houdini
+  * // .. layout api ..
+* // ..
+* // flexbox
+* // grid
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+https://csslayout.io/
+https://github.com/1milligram/csslayout
+
+// .. POWERFUL .. COMPLEX ..
+https://github.com/w3c/css-houdini-drafts/blob/main/css-layout-api/EXPLAINER.md
+
+--------------------------------------------------------------------------------
+
+// layouts
+
+* !!!!! https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
+  * 2-Column Layout with Sidebar
+  * Holy Grail Layout
+  * Full-screen Background Image
+  * Full-screen App Layout with Sidebar
+
+--------------------------------------------------------------------------------
+
+https://dev.to/adrianbdesigns/css-houdini-s-layout-api-explained-33pa
+
+registerLayout('exampleLayout', class {
+  static get inputProperties() { return ['--exampleVariable']; }
+
+  static get childrenInputProperties() { return ['--exampleChildVariable']; }
+
+  static get layoutOptions() {
+    return {
+      childDisplay: 'normal',
+      sizing: 'block-like'
+    };
+  }
+
+  intrinsicSizes(children, edges, styleMap) {
+    /* ... */
+  }
+
+  layout(children, edges, constraints, styleMap, breakToken) {
+    /* ... */
+  }
+});
+
+--------------------------------------------------------------------------------
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// DAN ABRAMOV HIMSELF ENDORSES TAILWIND
+https://twitter.com/dan_abramov/status/1452324924421550080
+
+Dan
+@dan_abramov
+·
+Oct 24, 2021
+overall impression: Weird; Would Use Again, which reminds me of how i feel about react in a nostalgic way.
+
+best part is how you can look at a UI tree and choose to either ignore styles completely (they’re not taking vertical space) or focus on them (and see the exact hierarchy)
+
+--------------------------------------------------------------------------------
+
+// TAILWIND BOOTSTRAP CONFLICT
+
+https://stackoverflow.com/questions/62688037/can-use-both-tailwind-css-and-bootstrap-4-at-the-same-time
+
+.container (Bootstrap)
+.container (Tailwind)
+
+.clearfix (B)
+.clearfix (T)
+
+//
+https://github.com/awssat/tailwindo
+
+--------------------------------------------------------------------------------
+
+// bootstrap
+
+* Customize/Override
+* Layout
+  * Containers
+  * Grid
+  * Columns
+  * Gutters
+  * Utilities
+  * Z-index
+* Content
+  * Reboot
+  * Typography
+  * Images
+  * Tables
+  * Figures
+* Forms
+  * Form controls
+  * Select
+  * Checks & radios
+  * Range
+  * Input group
+  * Floating labels
+  * Layout
+  * Validation
+* Components
+  * Accordion
+  * Alerts
+  * Badge
+  * Breadcrumb
+  * Buttons
+  * Button group
+  * Card
+  * Carousel
+  * Close button
+  * Collapse
+  * Dropdowns
+  * List group
+  * Modal
+  * Navs & tabs
+  * Navbar
+  * Offcanvas
+  * Pagination
+  * Popovers
+  * Progress
+  * Scrollspy
+  * Spinners
+  * Toasts
+  * Tooltips
+* Helpers
+  * Clearfix
+  * Colored links
+  * Ratio
+  * Position
+  * Stacks
+  * Visually hidden
+  * Stretched link
+  * Text truncation
+  * Vertical rule
+* Utilities
+  * API
+  * Background
+  * Borders
+  * Colors
+  * Display
+  * Flex
+  * Float
+  * Interactions
+  * Opacity
+  * Overflow
+  * Position
+  * Shadows
+  * Sizing
+  * Spacing
+  * Text
+  * Vertical align
+  * Visibility
+
+// supabase
+
+https://ui.supabase.com/
+
+* Supabase connected
+  * Auth
+* General
+  * Button
+  * Typography
+  * Icon
+* Data input
+  * Input
+  * InputNumber
+  * Select
+  * Radio
+  * Checkbox
+* Navigation
+  * Menu
+  * Tabs
+* Display
+  * Dropdown
+  * Badge
+  * Card
+  * Alert
+* Overlay
+  * Modal
+  * SidePanel
+
+https://github.com/supabase/grid
+
+// mui
+
+https://mui.com/
+
+* Inputs
+  * Autocomplete
+  * Button
+  * Button Group
+  * Checkbox
+  * Floating Action Button
+  * Radio button
+  * Rating
+  * Select
+  * Slider
+  * Switch
+  * Text field
+  * Transfer List
+  * Toggle Button
+* Data Display
+  * Avatar
+  * Badge
+  * Chip
+  * Divider
+  * Icons
+  * Material Icons
+  * List
+  * Table
+  * Tooltip
+  * Typography
+* Feedback
+  * Alert
+  * Backdrop
+  * Dialogs
+  * Progress
+  * Skeleton
+  * Snackbar
+* Surfaces
+  * Accordion
+  * App Bar
+  * Card
+  * Paper
+* Navigation
+  * Bottom Navigation
+  * Breadcrumbs
+  * Drawer
+  * Link
+  * Menu
+  * Pagination
+  * Speed Dial
+  * Stepper
+  * Tabs
+* Layout
+  * Box
+  * Container
+  * Grid
+  * Stack
+  * Image List
+  * Hidden
+* Utils
+  * Click Away Listener
+  * CSS Baseline
+  * Modal
+  * No SSR
+  * Popover
+  * Popper
+  * Portal
+  * Textarea Autosize
+  * Transitions
+  * useMediaQuery
+* Data Grid
+  * Overview
+  * Demo
+  * Getting Started
+  * Migration From v4
+  * Layout
+  * Columns
+  * Rows
+  * Editing
+  * Sorting
+  * Filtering
+  * Pagination
+  * Selection
+  * Events
+  * State
+  * Export
+  * Components
+  * Style
+  * Localization
+  * Scrolling
+  * Virtualization
+  * Accessibility
+  * Group & Pivot
+* Lab
+  * About the lab
+  * Introduction
+  * Date Picker
+  * Date Range Picker
+  * Date Time Picker
+  * Time Picker
+  * Masonry
+  * Timeline
+  * Trap Focus
+  * Tree View
+
+--------------------------------------------------------------------------------
+
+!!!!!
+https://tailwind.build/classes
+
+// .. TAILWIND SHINES WITH A JS COMPONENT SYSTEM (REACT, NEXT, VUE, ..) ..
+// .. tailwind .. daisyui ..
+// .. UTILITY IS THE WAY .. YOU CAN EASILY OVERRIDE ANYWAYS ..
+// .. html bloat .. @apply .. NOT IDEAL ..
+// .. bundle bloat .. purgecss ..
+// .. NOBODY IS USING THOSE CLASS NAMES TO BEGIN WITH .. LIKE A MACRO THAT'S STANDARDIZED ..
+
+// .. USERLAND TAILWIND .. PLUGINS/ETC ..
+https://github.com/tailwindlabs/tailwindcss/discussions/2119
+
+!!!!!
+https://sebastiandedeyne.com/why-we-use-important-with-tailwind/
+https://stackoverflow.com/questions/68527235/add-both-important-selector-strategy-for-tailwind-configuration
+
+
+// .. OVERRIDE IN PAGE THE TAILWIND CLASSES VIA !IMPORTANT ..
+
+* !!!!! https://daisyui.com/
+* !!!!!!!!!! https://news.ycombinator.com/item?id=28004515
+* ! https://johanronsse.be/2020/07/08/why-youll-probably-regret-using-tailwind/
+* !!!!! https://github.com/tailwindcomponents
+* !!!!!!!!!! https://tailwindcomponents.com/cheatsheet/
+* !!!!!!!!!! https://old.reddit.com/r/webdev/comments/p4sfrh/why_is_tailwind_so_popular/
+* !!!!!!!!!! https://old.reddit.com/r/css/comments/pighdr/is_tailwind_css_useful_to_learn_ive_been_watching/
+* https://stackoverflow.com/questions/63259023/using-tailwindcss-with-react-size-not-decreased-after-purging
+* !!!!!!!!!!!!!!!!!!!! https://www.polytomic.com/blog-posts/goodbye-css-modules-hello-tailwindcss
+* ! https://daily.dev/blog/why-i-moved-from-styled-components-to-tailwind-css-and-whats-the-future-of-css-in-js
+* 
+* ! https://github.com/ben-rogerson/twin.macro
+* ! https://www.npmjs.com/package/classnames
+* https://usewindy.com/
+* !!!!!!!!!!!!!!!!!!!! https://www.aleksandrhovhannisyan.com/blog/why-i-dont-like-tailwind-css/
+
+// ..
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+}
+
+// @apply is UNIDEAL .. rather temporarily store the classes in js components context .. NO NAMING BURDEN ..
+
+// ..
+
+// tailwind library
+
+* https://superdevresources.com/tailwind-ui-kits/
+* 
+
+--------------------------------------------------------------------------------
+
+!!!!!!!!!!
+https://css-tricks.com/css-is-a-strongly-typed-language/
+!!!!!
+https://www.smashingmagazine.com/2021/02/things-you-can-do-with-css-today/
+
+--------------------------------------------------------------------------------
+
+!!!!!
+https://old.reddit.com/r/webdev/comments/kwgwq4/can_someone_briefly_explain_the_difference/
+!!!!!!!!!!
+https://old.reddit.com/r/reactjs/comments/nm7m7v/tailwind_css_is_probably_overhyped/
+* Kind of, but it's a little different than that.
+Bootstrap by default comes with a bit more bloat due to its built in components and has a much more limited amount of utility classes in comparison.
+
+Tailwind comes with no components and allows you to make almost any CSS style or adjustment using just its classes.
+Micro-adjustments and edits to default styles can be made in a tailwind config file if needed and when you make a production build with Purge CSS, it'll strip away all the classes you didn't use, leaving you with a very small file.
+
+I've been doing web dev for over 20 years and wouldn't build a site without it nowadays.
+
+--------------------------------------------------------------------------------
+
+// houdini
+
+* https://github.com/CSSHoudini/awesome-css-houdini
+* https://blog.bitsrc.io/using-houdini-to-extend-css-3d11118d05a0
+* https://www.elian.codes/blog/10-13-21-adding-css-houdini/
+* https://news.ycombinator.com/item?id=27131897
+* https://old.reddit.com/r/webdev/comments/nb1ski/css_houdini_a_set_of_lowlevel_apis_that_exposes/
+* ! https://houdini.glitch.me/
+* https://developers.google.com/web/updates/2016/05/houdini
+* https://web.dev/houdini-how/
+* ! https://houdini.how/
+* https://developer.mozilla.org/en-US/docs/Web/Guide/Houdini
+* ! https://ishoudinireadyyet.com/
+* !!!!! https://css-houdini.rocks
+* !!!!! https://css-houdini.rocks/checkboxes
+* https://old.reddit.com/r/webdev/comments/ny15pn/i_wrote_a_css_houdinipaint_api_worklet_generative/
+
+--------------------------------------------------------------------------------
+
+// .. css variables ..
+
+https://css-tricks.com/the-power-and-fun-of-scope-with-css-custom-properties/
+
+!!!!!
+https://blog.logrocket.com/css-variables-scoping/
+
+Scoping
+The place in the CSS hierarchy where you declare a CSS variable will determine its level of visibility throughout the lower levels of the hierarchy.
+
+A CSS variable used throughout the entire page is declared in the :root pseudo-selector, or in the html selector.
+
+This is because all the elements on our page are enclosed in one HTML element, so CSS variables declared in the HTML element or in its :root selector will be visible for consumption from its children.
+
+:root is a pseudo-selector attached to the root of the HTML element in a document. In an RSS document, the :root element is attached to the RSS element.
+
+Generally, a CSS variable is only visible to child elements of the parent element it is declared in.
+
+//
+
+https://una.im/local-css-vars/
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="backend"><a class="header" href="#backend">Backend</a></h1>
+<!------------------------------------------------------------------------------
+
+* // express
+* https://devhints.io/express
+* https://courses.cs.washington.edu/courses/cse154/19su/resources/assets/cheatsheets/node-cheatsheet.pdf
+* https://github.com/technolaaji/nodejs-express-cheatsheet
+
+* // rails
+  * https://gist.github.com/mdang/95b4f54cadf12e7e0415
+  * https://dev.to/ericchapman/my-beloved-ruby-on-rails-cheat-sheet-50pi
+  * https://pagertree.com/2021/01/12/rails-cheat-sheet/
+  * https://devhints.io/rails-models
+  * 
+  * https://www.rubypigeon.com/posts/minitest-cheat-sheet/
+  * https://adebola-niran.medium.com/the-ultimate-rspec-cheatsheet-for-testing-rails-apis-5cbaaba14e46
+  * http://www.pragtob.info/rails-beginner-cheatsheet/
+  * https://cheatsheetseries.owasp.org/cheatsheets/Ruby_on_Rails_Cheat_Sheet.html
+  * https://hackernoon.com/the-definitive-command-cheat-sheet-for-rails-beginners-2uli3yb8
+  * https://medium.com/@ypatel82099/ruby-on-rails-cheatsheet-1d0bdadf35d8
+  * !!!!! https://www.debuggershub.com/ruby-on-rails-cheat-sheet/
+  * https://www.chrisjmendez.com/2016/07/01/rails-cheatsheet/
+  * https://teamgaslight.com/blog/ready-to-try-ruby-an-awesome-rails-cheat-sheet
+  * https://cheatography.com/matu/cheat-sheets/rails-4/
+  * https://eric-the-coder.com/ultimate-ruby-on-rails-cheat-sheet
+  * https://kapeli.com/cheat_sheets/Rails_i18n.docset/Contents/Resources/Documents/index
+
+* // django
+  * https://dev.to/ericchapman/my-beloved-django-cheat-sheet-2056
+  * https://github.com/lucrae/django-cheat-sheet
+  * https://www.creative-tim.com/blog/django-templates/django-cheat-sheet-free-samples/
+  * https://cheatography.com/tag/django/
+  * https://edu.anarcho-copy.org/Programming%20Languages/Python/Python%20CheatSheet/beginners_python_cheat_sheet_pcc_django.pdf
+  * https://simplecheatsheet.com/tag/django-cheat-sheet/
+  * https://www.codewithharry.com/blogpost/django-cheatsheet/
+  * https://cheat.readthedocs.io/en/latest/django/index.html
+  * http://www.cheat-sheets.org/saved-copy/django_reference_sheet.pdf
+  * https://github.com/lucrae/django-cheat-sheet
+  * 
+  * 
+  * 
+  * 
+  * 
+
+* // laravel
+  * https://learninglaravel.net/cheatsheet/
+  * https://simplecheatsheet.com/tag/laravel-cheat-sheet/
+  * https://dev.to/ericchapman/my-beloved-laravel-cheat-sheet-3l73
+  * https://hackr.io/blog/laravel-cheat-sheet
+  * https://cheatography.com/tag/laravel/
+  * https://artisan.page/
+  * https://cheatsheetseries.owasp.org/cheatsheets/Laravel_Cheat_Sheet.html
+  * https://github.com/piotr-jura-udemy/laravel-cheat-sheet
+  * https://gist.github.com/ppshobi/d87aae9b777c778b2dcf40baae8397a4
+  * https://www.quora.com/Which-tech-companies-use-the-Laravel-framework
+  * https://medium.com/@scarlett8285/top-10-laravel-development-companies-in-2021-updated-346291c0473e
+  * 
+  * 
+  * 
+  * 
+
+* // phoenix
+  * https://devhints.io/phoenix
+  * https://devhints.io/phoenix-ecto
+  * https://github.com/benbarber/phoenix-cheatsheet
+  * https://gist.github.com/mplatts/a404eb149887d958dcc10c755154410b
+  * https://medium.com/@sfcooper/phoenix-elixir-cheat-sheet-9c1aeb9fa484
+  * https://openai.gitbook.io/code-cheatsheets/elixir/phoenix/db/generators
+  * https://cheatography.com/kluthen/cheat-sheets/elixir-ecto-2-2/
+  * https://lib.marinovic.dev/phoenix
+  * ! https://californiadevlife.wordpress.com/2017/01/05/elixir-ecto-cheatsheet-for-rails-developers/
+  * https://project-awesome.org/h4cc/awesome-elixir
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="data"><a class="header" href="#data">Data</a></h1>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="platform"><a class="header" href="#platform">Platform</a></h1>
+<!------------------------------------------------------------------------------
+
+
+// .. platform engineering .. devs are the customers/users ..
+// .. supabase .. database (+ stuff) is the (primary) platform ..
+
+* https://old.reddit.com/r/sre/comments/s695o4/platform_engineering_is_live/
+* https://old.reddit.com/r/devops/comments/s695zu/platform_engineering_is_live/
+
+* !!!!! https://platformengineering.org/what-is-platform-engineering
+
+* https://platformengineering.org/platform-tooling/backstage-io-spotify
+* https://platformengineering.org/platform-tooling/kubevela
+* https://platformengineering.org/platform-tooling/humanitec
+
+* https://shahadarsh.com/2020/10/12/platform-engineering
+* https://shahadarsh.com/2020/11/11/platform-engineering-challenges-and-solutions/
+
+* !!!!!!!!!! https://www.getambassador.io/resources/rise-of-cloud-native-engineering-organizations/
+* https://softwareengineeringdaily.com/2020/02/13/setting-the-stage-for-platform-engineering/
+* !!!!! https://www.liatrio.com/blog/what-is-platform-engineering-the-concept-behind-the-term
+
+* !!!!! https://internaldeveloperplatform.org/
+* https://teamtopologies.com/
+* https://web.devopstopologies.com/#anti-types
+
+* !!!!! https://martinfowler.com/articles/platform-prerequisites.html
+* !!!!! https://www.thoughtworks.com/insights/articles/infrastructure-as-product
+
+* !!!!!!!!!!!!!!!!!!!! https://ably.com/blog/no-we-dont-use-kubernetes
+  * // .. THE PLATFORM 'IS' THE ANSWER .. WHY PLATFORM ENGINEERING EXISTS .. AND IS NOT K8S NECESSARILY ..
+* https://www.aquasec.com/cloud-native-academy/kubernetes-101/kubernetes-alternatives/
+
+* !!!!! https://thenewstack.io/platform-engineering-challenges-and-solutions/
+* https://www.techrepublic.com/article/top-5-things-to-know-about-platform-engineering/
+* https://about.gitlab.com/topics/devops/what-is-a-devops-platform-engineer/
+* https://medium.com/seek-blog/platform-engineering-why-we-dont-need-a-devops-team-e88c8b97cc4f
+* https://www.sonata-software.com/blog/product-vs-platform-engineering-rise-platform-engineering-team-structure-principles-practices
+* 
+* https://old.reddit.com/r/devops/comments/ojojef/platform_engineering_how_do_you_do_it/
+* https://old.reddit.com/r/sre/comments/m12sdl/becoming_a_platform_engineer/
+* 
+* ! https://github.com/backstage/backstage
+  * // example of platform eng ..
+* 
+* https://old.reddit.com/r/cscareerquestionsEU/comments/hdmyq0/what_do_platform_engineers_do/
+* 
+* https://octo.vmware.com/platform-engineering-and-sre-whats-the-difference/
+* https://www.infoq.com/articles/platform-engineering-as-community-service/
+* https://www.accenture.com/us-en/services/software-platforms/platform-essentials-platform-engineering
+* https://www.accenture.com/us-en/services/software-engineering/product-platform-engineering
+* https://medium.com/codex/why-you-need-a-platform-engineering-team-1d0ad5824145
+* https://humanitec.com/blog/internal-platform-teams-what-are-they-and-do-you-need-one
+* https://shipa.io/innovation/building-a-successful-platform-engineering-team/
+* https://devops.stackexchange.com/questions/1005/what-is-a-platform-engineer/1007
+* 
+* https://builtin.com/software-engineering-perspectives/platform-engineer-twilio-ask-your-developer-excerpt
+* https://loft.sh/blog/9-tools-every-platform-engineer-should-know/
+* 
+* 
+* 
+
+--------------------------------------------------------------------------------
+
+* !!!!! // AGNOSTIC KUBERNETES ..
+* https://cluster-api.sigs.k8s.io/
+* https://old.reddit.com/r/k8s/comments/q33s4d/kubernetes_cluster_api_reaches_production/
+* ! https://old.reddit.com/r/kubernetes/comments/ejh6cr/is_anyone_using_clusterapi_yet/
+* https://old.reddit.com/r/kubernetes/comments/m964xj/kubeadm_vs_cluster_api/
+* https://helio.exchange/blog/deploying-kubernetes-with-cluster-api
+* https://tanzu.vmware.com/content/blog/the-what-and-the-why-of-the-cluster-api
+* https://old.reddit.com/r/kubernetes/comments/rfhvww/how_to_create_provision_and_operate_kubernetes/
+  * I'm using Cluster-API with OpenStack and so far I've been very impressed. We're wrapping our own K8s-aaS service around it. It's a pleasure to work with.
+* 
+
+// (WINDOWS) KUBERNETES KIND
+
+* https://kind.sigs.k8s.io/docs/user/quick-start/
+* https://github.com/kubernetes-sigs/kind/releases
+* ! https://blog.nillsf.com/index.php/2020/08/28/running-kind-in-windows/
+* ! https://www.baeldung.com/ops/kubernetes-kind
+* https://sookocheff.com/post/kubernetes/local-kubernetes-development-with-kind/
+* https://dotnetninja.net/2021/03/running-a-multi-node-kubernetes-cluster-on-windows-with-kind/
+* https://itnext.io/starting-local-kubernetes-using-kind-and-docker-c6089acfc1c0
+
+* https://itnext.io/starting-local-kubernetes-using-kind-and-docker-c6089acfc1c0
+* https://www.cncf.io/wp-content/uploads/2020/08/CNCF-Webinar-Navigating-the-Sea-of-Local-Clusters-.pdf
+
+--------------------------------------------------------------------------------
+
+// .. kubernetes ..
+
+// pods without images
+https://github.com/kubernetes/kubernetes/issues/4932
+
+<%----------------------------------------------------------------------------%>
+
+!!!!!
+K8S provide a lot for than just autoscaling and load balancing. You can technically compare k8s to AWS as a whole.
+
+* !!!!! https://old.reddit.com/r/devops/comments/aali9l/why_k8s_when_aws_offers_autoscaling_and_load/
+
+  * A platform agnostic API to deploy your application - Don't like AWS? Just spin up a k8s cluster on GCP and deploy your application there. Without it you would need to invest a lot of time and effort into rebuilding your infrastructure inside GCP or any other provider. You can even go from cloud to on-prem or deploy your application to multiple cloud providers using the same deployment interfaces/APIs. That is if you don't make use of the extra services that the cloud providers provide.
+  Increased application density/cost savings. Rather than spinning up lots of small VMs that all cost a little bit and mostly waste their resources you can pack all the applications onto a fewer number of nodes and make better use of the servers you have.
+  Separation of concerns, no need to worry about VMs or keeping your OS up to date, no need to worry about ssh access, logging etc, k8s can do all that for you and let you focus on your application and less on the server supporting it. Though some of this is taken care of if you use their managed services, their managed services can also be very costly when you reach a large scale.
+  But that said it is solving similar problems to AWS and GCP so a large amount of what you can do with it you can also achieve with those platforms. AWS/GCP might be better if you can leverage its on demand costing and structure your application to make use of its services - if you don't might being locked into them as a platform.
+
+  Your application may or may not be well suited to k8s or even a containerized environment. It is just one of many solutions out there to help solve a common set of problems in its own way with its own benefits and trade offs that you must take into account when building your applications.
+
+  * !!!!! The real reason people use Kubernetes is because it's a container scheduling system, and most major cloud providers are node scheduling systems. That makes it very, very different from what AWS is doing - instead of launching several nodes for your application and then managing that, you launch several containers per node and manage those.
+
+  That's the unique selling point for Kubernetes - if you want to use containers instead of nodes as your primary layer (and you want to use containers so you can decouple application development and operational deployment needs), and you need a production-grade container scheduling system, you want to use Kubernetes to do it because it's the best at doing it. There really isn't a very strong and compelling equivalent for the same use case that isn't using K8s.
+
+  If you aren't using containers, then don't use Kubernetes and stick to AWS EC2/GCP/DigitalOcean/RackSpace, etc. Simple as that.
+
+  That being said, Kubernetes offers much more than just auto-scaling and load balancing:
+
+  A consistent standardised REST API. This is honestly its biggest feature imo.
+  Inbuilt secrets management with Secret types.
+  Extensive plugin support that allows you to modify and customise the actual runtime experience (you could choose to write your own custom scheduler for Kubernetes pods, or hijack the API server and have it pass through your own custom auth layer, and so on)
+  Support for container design patterns like sidecar pods.
+  In-built service discovery and service-to-service networking (Kubernetes will inject service IPs into pods so they can talk to each other at any time)
+  I don't have experience with GCP, but almost all of these abstractions are either bundled separately or don't really exist in the flavour you want them to on AWS.
+
+    * !!!!! ^ This is the best answer. To expand a bit:
+
+    AWS is a toolbox of parts. Almost every open-source project uses AWS resources differently. So you can't "mix and match" different projects.
+
+    If you write a deploy system, it will work for you, but won't work for everyone else, because everyone does deploys differently. (i.e. Some do it via SSH, some do it via building/launching a new AMI, Some do routing via ELB, some do it via Nginx, etc. Some use ASGs, some don't, etc.)
+
+    You might store metadata about your nodes in a DynamoDB, or might store annotations in Tags, but someone else might not. So you can write an "overview" page based on your data, but it won't work for anyone else.
+
+    Kubernetes is a Platform. It not only provides an API for all the things it does, but it also provides really simple plug-in mechanism to extend Kubernetes. It standardizes everything from Deployments to Ingresses (web and TCP servers), to fail-over, to security to health checks.
+
+    Some concrete examples:
+
+    - Operators: One way to extend K8s is via Operators. You load a single YAML file, and it now "knows" how to do something new. For example, there is a "MySQL Database Operator". You load that operator once, then say "I want a cluster with 3 replicas". It will create the right pods. The Operator will do all the magic (clustering, backups, fail-over, etc) than a human Operator would have done.
+
+    - Service Mesh: Since K8s knows about all your services, you can load a single YAML file to create a "service mesh" in between all your services. It will monitor all your communication between services and give you data about how they are performing (without touching your code.).
+
+    - Hello World: Every K8s tutorial has a "hello world" example YAML file that works in any cluster. But unlike a "raw AWS box", K8s will handle any node failures (including updating DNS if need be).
+
+  * Well, first of all, it should be "Why to use k8s when AWS offers elastic beanstalk or aws itself"
+
+  k8s doesn't actually have any real load balancing and relies on what you supply: on aws it would elb/nlb/alb on bare metal it probably is going to be metallb.
+
+  K8S provide a lot for than just autoscaling and load balancing. You can technically compare k8s to AWS as a whole.
+
+  Service accounts => AWS IAM Service-Linked Roles
+
+  Pod => ec2
+
+  Ingress => ALB/ELB/NLB
+
+  Persistent Volume Provisioners => EBS/EFS
+
+  Technically you still use autoscaling groups to provision new nodes in your k8s cluster effortlessly, but you workloads are more tightly packed.
+
+  Imagine I have 5 services in 3 different environments two of which are sandbox environments. Without containers it's 5x2 (sandbox) + 5x3 one for each availability zone) ec2 instances. 99% of the time those instances on sandbox do nothing. With k8s I provision one sandbox cluster and one production cluster. For the sandbox, I just give it 3 instances total for each availability zone and k8s will pack the shit out of it. For production, well, depending on the nature of applications, start with 6 instances and see how to goes + add cluster autoscaler.
+
+  Can I solve the same issue with the magic of CMS (C is for Configuration) and Infrastructure as a Code? Sure. Will be as easily manageable? No. Will I be able to transfer what I learned to a different cloud? Nope. Will a be locked into AWS until end of days? Yes.
+
+  On top of everything I get service discovery, secrets management, config maps, easy rolling updates, easy canary updates. Init containers are dope. Setting env variables from configmaps and secrets is dope. Mounting config maps/secrets as a mf volume is dope.
+
+--------------------------------------------------------------------------------
+
+// platform ops .. capabilities over culture .. platform is the product ..
+// .. minimize impedance mismatch between infra and product .. thru a platform ..
+
+https://thenewstack.io/platform-ops-the-next-frontier-for-operations-teams/
+https://www.nginx.com/blog/why-every-company-needs-platform-ops/
+https://www.gartner.com/en/documents/3892010/strengthen-your-devops-capability-with-platform-ops
+https://www.linkedin.com/pulse/what-platformops-maya-ber-lerner
+https://6point6.co.uk/insights/why-you-should-care-about-platform-ops/
+https://www.quali.com/blog/reinventing-the-wheels-in-devops-doesnt-scale-platform-ops-does/
+https://6point6ltd.medium.com/why-you-should-care-about-platform-ops-ee3d953df43f
+https://dzone.com/articles/what-is-platform-ops-and-why-should-developers-nee
+
+https://old.reddit.com/r/devops/comments/l5cnij/the_importance_of_internal_platform_teams/
+
+https://www.catchpoint.com/blog/improve-devops-strategy
+https://opengovasia.com/events/the-evolution-of-devops-is-platform-ops-the-future/
+
+https://www.devopsdigest.com/platform-ops-the-key-to-unlocking-the-full-potential-of-devops
+https://www.eventbrowse.com/city/singapore/event/the-evolution-of-devops-is-platform-ops-the-future/
+
+--------------------------------------------------------------------------------
+
+
+* !!!!! https://old.reddit.com/r/devops/comments/aali9l/why_k8s_when_aws_offers_autoscaling_and_load/
+
+* https://expeditedsecurity.com/aws-in-plain-english/
+* https://tutorialsdojo.com/aws-cheat-sheets/
+  * https://tutorialsdojo.com/aws-global-infrastructure/
+  * https://tutorialsdojo.com/aws-pricing/
+  * https://tutorialsdojo.com/aws-well-architected-framework-five-pillars/
+  * https://tutorialsdojo.com/aws-well-architected-framework-design-principles/
+  * https://tutorialsdojo.com/aws-well-architected-framework-disaster-recovery/
+* 
+* https://digitalcloud.training/certification-training/aws-solutions-architect-associate/compute/amazon-ec2/
+* ! https://intellipaat.com/blog/tutorial/amazon-web-services-aws-tutorial/aws-cheat-sheet/
+* ! https://intellipaat.com/mediaFiles/2019/02/AWS-Basic-Cheat-Sheet.png
+* 
+* https://levelup.gitconnected.com/amazon-web-services-aws-cheat-sheet-f1bddd736d0a
+* https://www.techrepublic.com/article/amazon-web-services-cheat-sheet/
+* https://cheatography.com/irohitpawar/cheat-sheets/aws-services/
+* https://www.whizlabs.com/blog/aws-cheat-sheet/
+* 
+* 
+* 
+
+* // aws cli
+  * https://www.bluematador.com/learn/aws-cli-cheatsheet
+  * ! https://aws.plainenglish.io/aws-cli-commands-cheatsheet-49fab131b35d
+  * https://devhints.io/awscli
+  * https://aws.amazon.com/cli/
+  * 
+  * https://gist.github.com/apolloclark/b3f60c1f68aa972d324b
+
+//
+
+https://intellipaat.com/blog/tutorial/amazon-web-services-aws-tutorial/aws-cheat-sheet/
+
+Types of Cloud
+There are three cloud types:
+
+Public cloud: Here, the resources and services provided by third-party service providers are available to customers via the Internet.
+Private cloud: In a private cloud, the resources and services are managed in-house or by third parties, exclusively for a particular organization.
+Hybrid cloud: It is a combination of both public and private cloud types. The decision whether to run the services on public or private depends on some parameters such as the sensitivity of the data and applications, industry certifications and required standards, etc.
+Go through our AWS Course in London to get a clear understanding of AWS!
+
+AWS
+Amazon Web Services (AWS) is a collection of various Cloud Computing services and applications that offers flexible, reliable, easy-to-use, and cost-effective solutions.
+
+Instance: An instance is a virtual server for running applications on AWS.
+
+Types of AWS Services
+Auto-scaling: It is a service designed by EC2, which is used to launch or terminate EC2 instances based on user-defined policies.
+
+Elastic Load Balancing: It automatically distributes the incoming application traffic across multiple instances at multiple availability zones.
+
+Learn more about AWS by enrolling in this AWS Training in New York to get ahead in your career!
+
+Networking Services
+VPC: Amazon Virtual Private Cloud (VPC) is a virtual data center in AWS consisting of a set of isolated resources.
+Direct Connect: It is used to establish a dedicated network connection from the host network to AWS without an Internet connection.
+Route 53: It is a scalable and highly available Domain Name System (DNS) and domain name registration service, and 53 is the port on which this service runs.
+Computing Services
+EC2: It is a virtual server that provides resizable compute capacity on the cloud.
+Elastic Beanstalk: It is an application container used for deploying and managing containers. It creates an environment for working with web applications.
+Lambda: It is a computing service that runs the code in response to events and automatically manages the computing resources.
+EC2 Container Service: It allows us to easily run and manage Docker containers across a cluster of EC2 instances.
+Are you preparing for an AWS interview? Here are the latest AWS Interview Questions!
+
+Storage Services
+S3: It refers to Simple Storage Service and allows the storage of data objects of any sort and flat files in the cloud. It is secure, scalable, and durable.
+CloudFront: CloudFront defines a Content Delivery Network. It provides a way to distribute content to end-users with low latency and high data-transfer speeds.
+Glacier: It is a low-cost storage service that provides secure and durable storage for long-term data archiving and backup.
+EFS (Elastic File Storage): It is a file storage service used in EC2 instances and connects to multiple EC2 instances.
+Snowball: It is used for moving large amounts of data into/out of AWS using secure appliances, i.e., it provides the data archiving functionality for the data that no longer needs to be accessed actively.
+Storage Gateway: It is used for securely integrating on-premises IT environments with cloud storage for backup and disaster recovery.
+Get certified by the top AWS Course in Singapore now!
+
+RDS (Relational Database Service): It allows the storage of data objects as part of the relational database. It makes it easy to set up, operate, and scale familiar relational databases in the cloud.
+DynamoDB: It is a scalable NoSQL data store that is used to manage distributed replicas of data for high availability.
+ElastiCache: It improves application performance by allowing us to retrieve information from an in-memory caching system. It is a way of caching databases in the cloud.
+Redshift: It is a fast, fully managed data warehousing service, which makes it cost-effective to analyze all data using the existing Business Intelligence tools.
+DMS (Data Migration Service): It helps in migrating databases to the cloud easily and securely. It can also be used for converting databases.
+
+Analytics
+EMR: Amazon Elastic MapReduce helps in performing big data tasks such as web indexing, data mining, and log file analysis.
+Data Pipeline: It helps in moving data from one service to another. It is a service used for periodic, data-driven workflows.
+AWS Elasticsearch: It is a managed service that helps in deploying, operating, and scaling Elasticsearch.
+Kinesis: It makes it easy to work with real-time streaming data in the AWS cloud.
+AWS Machine Learning: It is a service that enables us to easily build smart applications.
+QuickSight: AWS QuickSight is a cloud-assisted Business Intelligence service that helps in deriving insights from data easily.
+Learn the complete concepts of AWS at Hyderabad in just 36 hours!
+
+Security and Identity
+IAM: It helps in configuring security for all the services. It is used to ensure that our other services remain safe and inaccessible to others.
+Directory Service: It is used to provide a managed directory in the cloud.
+Inspector: It enables us to analyze the behaviour of the applications we run on AWS and helps in identifying potential security issues.
+AWS WAF (Web Application Firewall): It protects our web application from attacks by providing web traffic filters.
+Cloud HSM: It is a Hardware Security Module.
+KMS: It is a Key Management Service.
+Are you interested in learning AWS from experts? Enroll in the AWS Course in Bangalore now!
+
+Management Tools
+CloudWatch: It is used to create different metrics. It provides monitoring for resources and applications.
+CloudFormation: It helps in creating and updating a collection of related AWS resources.
+CloudTrial: It provides increased visibility into user activity by recording API calls made on an account.
+OpsWorks: It is a DevOps platform for managing applications of any size or complexity on the AWS cloud.
+Config: It gives an inventory of AWS resources, lets us audit the AWS resource configuration history, and notifies the changes.
+Service Catalog: It allows organizations to manage approved catalogs of IT resources.
+Trusted Advisor: It inspects the AWS environment and finds opportunities to save money and improve system performance.
+Wish to learn more? Check out Intellipaat’s AWS Course to get an in-depth understanding of Amazon Web Services!
+
+--------------------------------------------------------------------------------
+
+* https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf
+* https://dockerlabs.collabnix.com/docker/cheatsheet/
+* ! https://github.com/wsargent/docker-cheat-sheet
+
+--------------------------------------------------------------------------------
+
+* !!!!! https://old.reddit.com/r/devops/comments/aali9l/why_k8s_when_aws_offers_autoscaling_and_load/
+
+* https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+* https://www.bluematador.com/learn/kubectl-cheatsheet
+* https://www.mirantis.com/blog/kubernetes-cheat-sheet/
+* https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf
+* https://unofficial-kubernetes.readthedocs.io/en/latest/user-guide/kubectl-cheatsheet/
+* https://phoenixnap.com/kb/kubectl-commands-cheat-sheet
+
+* // gitops
+  * https://old.reddit.com/r/kubernetes/comments/nr3fp0/gitops_demystified/
+  * !!!!! https://testingclouds.wordpress.com/2021/06/02/gitops-demystified/
+  * https://github.com/weaveworks/kubediff
+  * https://github.com/jml/terradiff
+  * !!!!! https://twitter.com/bryanl/status/1399783101925052422
+  * https://old.reddit.com/r/kubernetes/comments/9a8stj/what_is_gitops_really/
+    * !!!!! Yes, but gitops is a system where by there is a system in place which watches the git repository for changes and automatically applies that to the environment even posts back certain things to git.
+
+  An important part of what you would do is having declarative configuration and idempotent deployment code in the repository. So when the environment is not as intended the system should 'make it so'.
+
+  You do not directly use kubectl, etc. the system does that for you.
+
+  The only part you would interact with is: git.
+
+  This makes it very clear who changed what/when/why and does not give the ability to change and thus break things directly.
+
+  Because the only system interacting with Kubernetes itself is the gitops deployment system security and compliance are handles automatically without any extra effort.
+  * !!!!! https://old.reddit.com/r/kubernetes/comments/imgqoj/gitops_the_bad_and_the_ugly/
+  * https://blog.container-solutions.com/gitops-limitations
+  * https://cloudogu.com/en/blog/gitops-tools
+  * https://old.reddit.com/r/kubernetes/comments/dc8bfd/gitops_what_why_and_how/
+  * https://www.gitops.tech/
+  * https://old.reddit.com/r/kubernetes/comments/krjsw9/how_to_use_gitops_with_argocd/
+  * 
+  * 
+  * 
+  * 
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="release"><a class="header" href="#release">Release</a></h1>
+<!------------------------------------------------------------------------------
+
+// .. canary, ..
+
+* // cicd
+  * https://www.katalon.com/resources-center/blog/ci-cd-cheat-sheet/
+  * https://www.densify.com/resources/poster-continuous-integration-delivery-cicd-framework
+  * https://www.densify.com/wp-content/uploads/poster-continuous-integration-delivery-cicd-framework-cheat-sheet.jpg
+  * https://cheatography.com/violaken/cheat-sheets/gitlab-ci-cd-pipeline-configuration/
+  * https://opensource.com/article/20/5/cicd-best-practices
+  * https://www.mindtheproduct.com/what-the-hell-are-ci-cd-and-devops-a-cheatsheet-for-the-rest-of-us/
+  * 
+
+<%----------------------------------------------------------------------------%>
+
+// .. github flow ..
+
+* // git flow vs trunk based
+  * !!!!! https://nvie.com/posts/a-successful-git-branching-model/
+  * !!!!! https://www.toptal.com/software/trunk-based-development-git-flow
+  * https://old.reddit.com/r/git/comments/gzcckz/implementing_gitflow_with_github_what_is_the/
+  * https://docs.github.com/en/get-started/quickstart/github-flow
+
+//
+
+https://nvie.com/posts/a-successful-git-branching-model/
+
+Note of reflection (March 5, 2020)
+This model was conceived in 2010, now more than 10 years ago, and not very long after Git itself came into being. In those 10 years, git-flow (the branching model laid out in this article) has become hugely popular in many a software team to the point where people have started treating it like a standard of sorts — but unfortunately also as a dogma or panacea.
+
+During those 10 years, Git itself has taken the world by a storm, and the most popular type of software that is being developed with Git is shifting more towards web apps — at least in my filter bubble. Web apps are typically continuously delivered, not rolled back, and you don't have to support multiple versions of the software running in the wild.
+
+This is not the class of software that I had in mind when I wrote the blog post 10 years ago. If your team is doing continuous delivery of software, I would suggest to adopt a much simpler workflow (like GitHub flow) instead of trying to shoehorn git-flow into your team.
+
+If, however, you are building software that is explicitly versioned, or if you need to support multiple versions of your software in the wild, then git-flow may still be as good of a fit to your team as it has been to people in the last 10 years. In that case, please read on.
+
+To conclude, always remember that panaceas don't exist. Consider your own context. Don't be hating. Decide for yourself.
+
+--------------------------------------------------------------------------------
+
+* https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet
+* https://education.github.com/git-cheat-sheet-education.pdf
+* https://docs.github.com/en/get-started/quickstart/git-cheatsheet
+* https://www.freecodecamp.org/news/git-cheat-sheet/
+* https://ndpsoftware.com/git-cheatsheet.html#loc=index;
+* https://www.git-tower.com/blog/git-cheat-sheet/
+* https://git-scm.com/docs
+* https://phoenixnap.com/kb/git-commands-cheat-sheet
+
+--------------------------------------------------------------------------------
+
+* https://build5nines.com/github-cli-gh-cheat-sheet/
+* https://build5nines.com/wp-content/uploads/2020/04/GitHub-CLI-Cheat-Sheet-Build5Nines.pdf
+* https://cli.github.com/
+
+* // github actions
+  * https://github.com/github/actions-cheat-sheet/blob/master/actions-cheat-sheet.pdf
+  * https://gist.github.com/JonasWanke/c8bc0f90658fbfeef7da35ffe8feb7f4
+  * https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+  * https://resources.github.com/whitepapers/GitHub-Actions-Cheat-sheet/
+  * https://resources.github.com/downloads/GitHub_Actions-Cheat-Sheet-One-Pager.pdf
+  * https://blog.ruanbekker.com/cheatsheets/github-actions/
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="operations"><a class="header" href="#operations">Operations</a></h1>
+<!------------------------------------------------------------------------------
+
+http://www.devopsbookmarks.com/
+
+!!!!!
+https://12factor.net/
+!!!!!
+https://github.com/donnemartin/system-design-primer
+
+* // devops
+  * 
+  * https://tdevroome.medium.com/the-devops-handbook-cheat-sheet-42902cbaef12
+  * https://aws.amazon.com/devops/
+  * https://github.com/sk3pp3r/cheat-sheet-pdf
+  * https://roadmap.sh/devops
+  * // 12 factors
+  * 
+  * 
+
+* // sre
+  * https://sre.google/sre-book/table-of-contents/
+  * https://github.com/shibumi/SRE-cheat-sheet
+  * https://github.com/michael-kehoe/awesome-sre-cheatsheets
+  * https://networkinterview.com/sla-vs-slo-vs-sli-sre-fundamentals/
+  * https://www.atlassian.com/incident-management/devops/sre
+  * https://awesomeopensource.com/project/bosiakov/sre-cheatsheet?categoryPage=47
+  * 
+  * 
+
+* // elk
+* // monitoring
+* // logging
+
+* // linux, bash
+  * https://devhints.io/bash
+  * https://github.com/LeCoupa/awesome-cheatsheets/blob/master/languages/bash.sh
+  * https://devdojo.com/bobbyiliev/the-only-bash-scripting-cheat-sheet-that-you-will-ever-need
+  * https://oit.ua.edu/wp-content/uploads/2020/12/Linux_bash_cheat_sheet-1.pdf
+  * https://shellmagic.xyz/
+  * https://www.pcwdld.com/bash-cheat-sheet
+  * 
+  * https://www.loggly.com/wp-content/uploads/2015/05/Linux-Cheat-Sheet-Sponsored-By-Loggly.pdf
+  * https://www.guru99.com/linux-commands-cheat-sheet.html
+  * https://linuxconfig.org/linux-commands-cheat-sheet
+  * https://www.pcwdld.com/linux-commands-cheat-sheet
+  * https://linuxhint.com/linux-command-cheat-sheet/
+  * 
+
+--------------------------------------------------------------------------------
+
+* https://lzone.de/cheat-sheet/Redis
+
+* https://lzone.de/cheat-sheet/RabbitMQ
+* https://dev-pages.info/rabbitmq-cheat-sheets/
+* https://cheatography.com/francisuk/cheat-sheets/rabbitmq/
+* https://quizlet.com/304844049/rabbitmq-cheatsheet-1-flash-cards/
+* https://www.rabbitmq.com/cli.html
+* http://gexiaoguo.github.io/RabbitMQ-Cheat-Sheet/
+
+* https://old.reddit.com/r/programming/comments/s3mul0/updating_a_50_terabyte_postgresql_database/
+  * ! This is usually done by implementing a message queue system such as kafka. The writer probably thought this was obvious as it's pretty common in the industry but an oversight on their part.
+  * ! Kafka is great and solves those hard problems but it's also not easy to use. For small to medium scale (e.g. 500 million events/rows) RabbitMQ or just Postgres is definitely easier to manage.
+
+* https://github.com/lensesio/kafka-cheat-sheet
+* https://gist.github.com/sahilsk/d2a6ec384f5f2333e3fef40a581a97e1
+* https://medium.com/@TimvanBaarsen/apache-kafka-cli-commands-cheat-sheet-a6f06eac01b
+* https://gankrin.org/list-of-kafka-commands-cheatsheet/
+* https://lzone.de/cheat-sheet/Kafka
+* https://www.crybit.com/kafka-cheat-sheet/
+* http://www.masterspringboot.com/apache-kafka/apache-kafka-cheatsheet/
+* https://blog.jromanmartin.io/cheat-sheets/apache-kafka
+* https://www.admios.com/blog/cto-cheat-sheet-apache-kafka
+* https://ronnieroller.com/kafka/cheat-sheet
+* 
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="execution"><a class="header" href="#execution">Execution</a></h1>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="languages"><a class="header" href="#languages">Languages</a></h1>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="custom"><a class="header" href="#custom">Custom</a></h1>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+<div style="break-before: page; page-break-before: always;"></div><!------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------
+
+<:>
+{
+  "%": "",
+  ".": "index.md!m.md",
+  ":": [],
+  "!": [],
+  "~": [],
+  "_": [],
+  "?": [],
+  "#": "#"
+}
+//
+</:>
+
+------------------------------------------------------------------------------->
+<!----------------------------------------------------------------------------->
+<h1 id="more"><a class="header" href="#more">More</a></h1>
+<!------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:y000>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:y000>
+
+------------------------------------------------------------------------------->
+<!--!!
+
+
+
+<%----------------------------------------------------------------------------%>
+
+# Title
+
+<%------------------------------------------------------------------------------
+
+// ..
+
+--------------------------------------------------------------------------------
+
+<:_tmpl>
+{
+  "%": "",
+  ".": [],
+  ":": [],
+  "!": [],
+  "~": [],
+  "?": [],
+  "#": "#"
+}
+</:_tmpl>
+
+------------------------------------------------------------------------------%>
+
+
+
+!!-->
+<!--!!
+
+!!-->
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="docs/more/script.js"></script>
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
